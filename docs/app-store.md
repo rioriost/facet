@@ -9,10 +9,10 @@
 | アプリ名 | Facet – Contact QR |
 | Bundle ID | st.rio.facet |
 | Watch Bundle ID | st.rio.facet.watchkitapp |
-| バージョン | 0.1.0 (1)、開発用 |
+| バージョン | App Store Connect: 1.0.0。ローカルは0.1.0 (1)の開発ビルド。提出前に揃える |
 | 価格 | 無料、IAP・広告なし |
 | プライバシーURL | https://github.com/rioriost/facet/blob/main/PRIVACY_POLICY.md |
-| サポートURL | https://github.com/rioriost/facet/blob/main/SUPPORT.md |
+| サポートURL | https://github.com/rioriost/facet/issues（アプリ内ではSUPPORT.mdも利用） |
 | マーケティングURL | https://github.com/rioriost/facet |
 | ライセンス | MIT（ソースコード）。配布アプリのEULAはApple標準を想定 |
 
@@ -26,7 +26,11 @@
 - App Iconは3面カードの1024px asset catalogを実装済み。実機上での表示確認、実機スクリーンショット、説明・年齢区分・カテゴリ・著作権・輸出申告を確定する。最終アイコンの見た目とwatchOSアセット要件を確認する。
 - iOS 18 / watchOS 11での実行、指定実機での標準カメラ読取、日本語/長い項目/複数電話、Watch同期・通信断・権限取消・削除を完了する。
 - 提出時に受け付けられるXcode版でRelease Archive、Validate、配布署名を確認する。現在のbeta SDKのビルド成功だけで提出可能としない。
-- App Store Connectのレコード作成、価格0、IAPなし、Watch同梱を確認。アップロード・TestFlight・審査送信は未実施。
+- App Store Connectのレコード6812192295を確認。12言語のプロモーション用テキスト・概要・キーワード・サブタイトルを保存。価格は全175地域で0、IAP・サブスクリプションなし。Mac/Vision Proの互換配信は対象外としてオフ。ビルドのアップロード・TestFlight・審査送信は未実施。
+- 年齢区分4+、ビジネス/ユーティリティ、Apple標準EULA、収集なしの公開済みApp Privacy、12言語のPolicy URLをレビュー。無料・有料アプリ契約は有効。
+- App Reviewのサインイン不要と英語の審査手順を保存。連絡先の電話番号・メールは本人からの指定待ち。EUのDSA事業者区分も本人の判断・申告が必要。
+- アクセシビリティはiPhone/Watchともサポートを宣言しない既存下書き。対応表示を増やす前に各機能を実機で検証する。
+- [スクリーンショット撮影と検証](store-screenshots.md): iPhone48枚、Watch36枚。
 
 ## 審査メモ案
 

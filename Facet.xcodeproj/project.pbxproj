@@ -30,6 +30,7 @@
 		BEF2F33CE0A2DA45D73C7E6C /* FacetWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E74B0DDB6A3C3A152A2D696 /* FacetWatchApp.swift */; };
 		C3D2A6D403FD81CBEF9495EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BBF2F9779175F97273BA99E /* Assets.xcassets */; };
 		D164B6C2B2078D6C6C7875AF /* Connectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31FCF5154268A8532A23365 /* Connectivity.swift */; };
+		D89F10293FC5DD9FE9BBE0EF /* FacetStoreScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521B5F9F94AE48CE0BB035C3 /* FacetStoreScreenshotTests.swift */; };
 		D9429802BEAD74F042CCF84C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 29314111DF5D7ABA9DAA05E8 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
@@ -82,6 +83,7 @@
 		3B0CACA854F3651089BE710E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3F777B278995217028DDA2B3 /* PrivateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateStore.swift; sourceTree = "<group>"; };
 		468E332DA556188450640DF3 /* facet */ = {isa = PBXFileReference; lastKnownFileType = folder; name = facet; path = .; sourceTree = SOURCE_ROOT; };
+		521B5F9F94AE48CE0BB035C3 /* FacetStoreScreenshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacetStoreScreenshotTests.swift; sourceTree = "<group>"; };
 		5BBF2F9779175F97273BA99E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		69107E9E9859C301121EFCDD /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		76141F62CE2F30583B0DB242 /* FacetWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FacetWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -222,6 +224,7 @@
 			children = (
 				9BE4519BDB7CC0ADB8DC78A2 /* FacetContactsUITests.swift */,
 				0EEB7B9DA9BC9AD0B4134F43 /* FacetLocalizationUITests.swift */,
+				521B5F9F94AE48CE0BB035C3 /* FacetStoreScreenshotTests.swift */,
 				C1375AD72F5320F97FF46097 /* FacetUITests.swift */,
 			);
 			path = FacetUITests;
@@ -412,6 +415,7 @@
 			files = (
 				AE3B0D06F1E9D87EFEB4F5D2 /* FacetContactsUITests.swift in Sources */,
 				B677B4D50CB58DD623B66C0C /* FacetLocalizationUITests.swift in Sources */,
+				D89F10293FC5DD9FE9BBE0EF /* FacetStoreScreenshotTests.swift in Sources */,
 				A13C3601236982D3C3E8BFFA /* FacetUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -35,9 +35,9 @@ final class PhoneModel: ObservableObject {
             settings.contactID = "demo"
             settings.onboardingComplete = true
             fields = [
-                .init(id: "name", kind: .name, label: L10n.text("field.name"), displayValue: "藤田 理央", components: ["藤田", "理央"]),
-                .init(id: "work-email", kind: .email, label: L10n.fieldLabel(L10n.text("field.email"), L10n.text("field.work")), displayValue: "rio@example.com", components: ["rio@example.com"]),
-                .init(id: "private-phone", kind: .phone, label: L10n.fieldLabel(L10n.text("field.phone"), L10n.text("field.home")), displayValue: "090-0000-0000", components: ["090-0000-0000"])
+                .init(id: "name", kind: .name, label: L10n.text("field.name"), displayValue: "Alex Morgan", components: ["Morgan", "Alex"]),
+                .init(id: "work-email", kind: .email, label: L10n.fieldLabel(L10n.text("field.email"), L10n.text("field.work")), displayValue: "alex@example.com", components: ["alex@example.com"]),
+                .init(id: "private-phone", kind: .phone, label: L10n.fieldLabel(L10n.text("field.phone"), L10n.text("field.home")), displayValue: "+1 202-555-0142", components: ["+1 202-555-0142"])
             ]
             settings.profiles[.work] = .init(fields: ["name", "work-email"])
             settings.profiles[.personal] = .init(fields: ["name", "private-phone"])

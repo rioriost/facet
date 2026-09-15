@@ -53,11 +53,12 @@ struct FacetWatchApp: App {
 
 struct WatchView: View {
     @ObservedObject var model: WatchModel
+    @State private var selectedPage = "work"
     @State private var confirmClear = false
     @Environment(\.scenePhase) private var phase
     @Environment(\.isLuminanceReduced) private var isLuminanceReduced
     var body: some View {
-        TabView {
+        TabView(selection: $selectedPage) {
             ForEach(ProfileID.allCases) { id in
                 VStack(spacing: 2) {
                     Text(id.title).font(.caption2).lineLimit(1).minimumScaleFactor(0.7)
@@ -68,7 +69,7 @@ struct WatchView: View {
                         Image(systemName: id.symbol).font(.title)
                         Text(L10n.text("watch.setup")).font(.caption2).multilineTextAlignment(.center)
                     }
-                }.padding(.horizontal, 4)
+                }.padding(.horizontal, 4).tag(id.rawValue)
             }
             ScrollView {
                 VStack(spacing: 10) {
@@ -81,9 +82,19 @@ struct WatchView: View {
                     Text(L10n.text("watch.offline")).font(.caption2)
                     Button(L10n.text("watch.erase"), role: .destructive) { confirmClear = true }
                 }
-            }
+            }.tag("settings")
         }
         .tabViewStyle(.page)
+        .onAppear {
+            #if DEBUG && targetEnvironment(simulator)
+            let arguments = ProcessInfo.processInfo.arguments
+            if let index = arguments.firstIndex(of: "--screenshot-profile"),
+               arguments.indices.contains(index + 1),
+               ProfileID(rawValue: arguments[index + 1]) != nil {
+                selectedPage = arguments[index + 1]
+            }
+            #endif
+        }
         .privacySensitive()
         .onChange(of: phase) { _, next in if next == .active { model.connectivity.readLatest() } }
         .confirmationDialog(L10n.text("watch.confirm"), isPresented: $confirmClear) {

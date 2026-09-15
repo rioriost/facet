@@ -80,6 +80,7 @@ schemes:
         - name: FacetUITests
           skippedTests:
             - FacetContactsUITests
+            - FacetStoreScreenshotTests
   FacetContactsTests:
     build:
       targets:
@@ -93,3 +94,12 @@ schemes:
     build:
       targets:
         FacetWatch: all
+  FacetStoreScreenshots:
+    build:
+      targets:
+        Facet: all
+    test:
+      targets:
+        - name: FacetUITests
+          selectedTests:
+            - FacetStoreScreenshotTests
