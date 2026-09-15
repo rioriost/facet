@@ -26,8 +26,9 @@ public struct WatchSnapshot: Codable, Equatable, Sendable {
     public var id: UUID
     public var createdAt: Date
     public var cards: [QRCard]
-    public init(cards: [QRCard], id: UUID = UUID(), createdAt: Date = Date()) {
-        self.id = id; self.createdAt = createdAt; self.cards = cards
+    public var restoreToken: UUID?
+    public init(cards: [QRCard], id: UUID = UUID(), createdAt: Date = Date(), restoreToken: UUID? = nil) {
+        self.id = id; self.createdAt = createdAt; self.cards = cards; self.restoreToken = restoreToken
     }
     public func validate() throws {
         guard version == 1, cards.count <= 3, Set(cards.map(\.id)).count == cards.count else {

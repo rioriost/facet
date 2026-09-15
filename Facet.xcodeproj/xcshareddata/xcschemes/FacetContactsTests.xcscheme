@@ -41,7 +41,8 @@
       <Testables>
          <TestableReference
             skipped = "NO"
-            parallelizable = "NO">
+            parallelizable = "NO"
+            useTestSelectionWhitelist = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2EAF5BEB2568BE74674F803D"
@@ -49,11 +50,11 @@
                BlueprintName = "FacetUITests"
                ReferencedContainer = "container:Facet.xcodeproj">
             </BuildableReference>
-            <SkippedTests>
+            <SelectedTests>
                <Test
                   Identifier = "FacetContactsUITests">
                </Test>
-            </SkippedTests>
+            </SelectedTests>
          </TestableReference>
       </Testables>
       <CommandLineArguments>

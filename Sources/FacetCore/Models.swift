@@ -20,6 +20,7 @@ public struct FacetSettings: Codable, Equatable, Sendable {
     public var contactID: String?
     public var profiles: [ProfileID: ProfileSelection]
     public var onboardingComplete: Bool
+    public var watchRestoreToken: UUID?
     public init() {
         contactID = nil
         profiles = Dictionary(uniqueKeysWithValues: ProfileID.allCases.map { ($0, ProfileSelection()) })

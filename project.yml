@@ -32,6 +32,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: st.rio.facet
         PRODUCT_NAME: Facet
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         TARGETED_DEVICE_FAMILY: "1"
         SUPPORTS_MACCATALYST: NO
         SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
@@ -51,6 +52,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: st.rio.facet.watchkitapp
         PRODUCT_NAME: FacetWatch
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         INFOPLIST_KEY_CFBundleDisplayName: Facet
         INFOPLIST_KEY_WKCompanionAppBundleIdentifier: st.rio.facet
         INFOPLIST_KEY_WKWatchKitApp: YES
@@ -73,7 +75,18 @@ schemes:
         Facet: all
     test:
       targets:
-        - FacetUITests
+        - name: FacetUITests
+          skippedTests:
+            - FacetContactsUITests
+  FacetContactsTests:
+    build:
+      targets:
+        Facet: all
+    test:
+      targets:
+        - name: FacetUITests
+          selectedTests:
+            - FacetContactsUITests
   FacetWatch:
     build:
       targets:

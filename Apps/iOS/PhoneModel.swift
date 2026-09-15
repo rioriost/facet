@@ -17,8 +17,17 @@ final class PhoneModel: ObservableObject {
     private var refreshID = UUID()
     private var latest: WatchSnapshot?
     private var demo = false
+    #if DEBUG && targetEnvironment(simulator)
+    private var fixtureTask: Task<String, Error>?
+    #endif
 
     init() {
+        #if DEBUG && targetEnvironment(simulator)
+        if ProcessInfo.processInfo.arguments.contains("--reset-fixture-settings") {
+            do { try PrivateStore.write(FacetSettings(), name: "settings.json") }
+            catch { self.error = "テスト用設定を初期化できませんでした。" }
+        }
+        #endif
         #if DEBUG
         demo = ProcessInfo.processInfo.arguments.contains("--demo")
         #endif
@@ -45,6 +54,18 @@ final class PhoneModel: ObservableObject {
     }
     func refresh() async {
         guard !demo else { return }
+        #if DEBUG && targetEnvironment(simulator)
+        if ProcessInfo.processInfo.arguments.contains("--contacts-fixture") {
+            if fixtureTask == nil { fixtureTask = Task { try await repository.prepareUITestContact() } }
+            do {
+                let id = try await fixtureTask!.value
+                if settings.contactID == nil {
+                    var next = settings; next.selectContact(id)
+                    guard save(next) else { return }
+                }
+            } catch { self.error = error.localizedDescription; return }
+        }
+        #endif
         let token = UUID(); refreshID = token
         authorization = CNContactStore.authorizationStatus(for: .contacts)
         fields = []; cards = []
@@ -84,9 +105,15 @@ final class PhoneModel: ObservableObject {
     }
     func reset() {
         refreshID = UUID()
-        if save(FacetSettings()) { fields = []; contacts = []; rebuild(force: true) }
+        var next = FacetSettings()
+        next.watchRestoreToken = settings.watchRestoreToken
+        if save(next) { fields = []; contacts = []; rebuild(force: true) }
     }
-    func resync() { rebuild(force: true) }
+    func resync() {
+        var next = settings
+        next.watchRestoreToken = UUID()
+        if save(next) { rebuild(force: true) }
+    }
     private func save(_ next: FacetSettings) -> Bool {
         do {
             if !demo { try PrivateStore.write(next, name: "settings.json") }
@@ -103,7 +130,7 @@ final class PhoneModel: ObservableObject {
         }
         cards = generated; issues = failures
         if force || latest?.cards != generated {
-            latest = WatchSnapshot(cards: generated)
+            latest = WatchSnapshot(cards: generated, restoreToken: settings.watchRestoreToken)
         }
         if let latest, !demo { connectivity.send(latest) }
     }

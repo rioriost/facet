@@ -3,6 +3,7 @@ import XCTest
 final class FacetUITests: XCTestCase {
     @MainActor func testFirstLaunchShowsSettingsWithoutRequestingContacts() {
         let app = XCUIApplication()
+        app.launchArguments = ["--reset-fixture-settings"]
         app.launch()
         XCTAssertTrue(app.navigationBars["公開設定"].waitForExistence(timeout: 10))
         XCTAssertTrue(app.buttons["Apple Contactsへのアクセスを許可"].exists)

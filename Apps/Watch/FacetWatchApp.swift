@@ -2,41 +2,45 @@ import SwiftUI
 import Combine
 import FacetCore
 
-private struct WatchCache: Codable {
-    var snapshot: WatchSnapshot
-    var hidden: Bool
-}
-
 @MainActor
 final class WatchModel: ObservableObject {
     @Published private(set) var snapshot: WatchSnapshot?
     @Published var error: String?
+    @Published private(set) var synchronizedAt: Date?
     let connectivity = Connectivity()
     private var cache: WatchCache?
     init() {
         do {
             cache = try PrivateStore.read(WatchCache.self, name: "watch.json")
             try cache?.snapshot.validate()
+            synchronizedAt = cache?.receivedAt
             if cache?.hidden != true { snapshot = cache?.snapshot }
         } catch { self.error = "保存したQRを読み込めません。iPhoneから再同期してください。" }
-        connectivity.onSnapshot = { [weak self] in self?.receive($0) == true }
+        connectivity.onSnapshot = { [weak self] in self?.receive($0) }
         connectivity.readLatest()
     }
-    private func receive(_ incoming: WatchSnapshot) -> Bool {
-        if cache?.snapshot.id == incoming.id { return true }
+    private func receive(_ incoming: WatchSnapshot) -> Bool? {
         do {
-            let next = WatchCache(snapshot: incoming, hidden: false)
+            var next: WatchCache
+            if let cache {
+                next = cache
+                try next.receive(incoming)
+            } else {
+                next = try WatchCache(snapshot: incoming)
+            }
             try PrivateStore.write(next, name: "watch.json")
-            cache = next; snapshot = incoming; return true
-        } catch { self.error = "QRを保存できませんでした。"; return false }
+            cache = next; snapshot = next.hidden ? nil : next.snapshot
+            synchronizedAt = next.receivedAt
+            return next.hidden
+        } catch { self.error = "QRを保存できませんでした。"; return nil }
     }
     func clear() {
         do {
-            // Retain only the tombstone ID, never the erased modules.
-            let tombstone = WatchSnapshot(cards: [], id: cache?.snapshot.id ?? UUID())
-            let next = WatchCache(snapshot: tombstone, hidden: true)
+            var next = try cache ?? WatchCache(snapshot: WatchSnapshot(cards: []))
+            next.clear()
             try PrivateStore.write(next, name: "watch.json")
             cache = next; snapshot = nil
+            connectivity.acknowledge(next.snapshot, hidden: true)
         } catch { self.error = "QRを消去できませんでした。" }
     }
 }
@@ -70,7 +74,7 @@ struct WatchView: View {
                 VStack(spacing: 10) {
                     Text("Facet").font(.headline)
                     WatchSyncStatus(connectivity: model.connectivity)
-                    if let date = model.snapshot?.createdAt {
+                    if let date = model.synchronizedAt {
                         Text("最終同期").font(.caption)
                         Text(date, format: .dateTime.month().day().hour().minute()).font(.caption2)
                     }
