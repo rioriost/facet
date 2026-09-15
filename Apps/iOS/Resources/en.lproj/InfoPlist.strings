@@ -1,0 +1,3 @@
+// Facet UI localization. Keep keys and format placeholders stable.
+"CFBundleDisplayName" = "Facet – Contact QR";
+"NSContactsUsageDescription" = "Facet uses only the fields you select from your contact to create QR codes for sharing.";

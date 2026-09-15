@@ -1,5 +1,7 @@
 name: Facet
 options:
+  developmentLanguage: en
+  knownRegions: [en, ja, zh-Hans, zh-Hant, ko, fr, de, es, es-419, pt-BR, pt-PT, it]
   bundleIdPrefix: st.rio
   deploymentTarget:
     iOS: "18.0"
@@ -37,7 +39,7 @@ targets:
         SUPPORTS_MACCATALYST: NO
         SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
         INFOPLIST_KEY_CFBundleDisplayName: Facet – Contact QR
-        INFOPLIST_KEY_NSContactsUsageDescription: 自分の連絡先から、あなたが選んだ項目だけを共有用QRコードにします。
+        INFOPLIST_KEY_NSContactsUsageDescription: Facet uses only the fields you select from your contact to create QR codes for sharing.
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
   FacetWatch:

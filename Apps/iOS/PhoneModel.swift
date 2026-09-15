@@ -25,7 +25,7 @@ final class PhoneModel: ObservableObject {
         #if DEBUG && targetEnvironment(simulator)
         if ProcessInfo.processInfo.arguments.contains("--reset-fixture-settings") {
             do { try PrivateStore.write(FacetSettings(), name: "settings.json") }
-            catch { self.error = "テスト用設定を初期化できませんでした。" }
+            catch { self.error = L10n.text("error.test") }
         }
         #endif
         #if DEBUG
@@ -35,9 +35,9 @@ final class PhoneModel: ObservableObject {
             settings.contactID = "demo"
             settings.onboardingComplete = true
             fields = [
-                .init(id: "name", kind: .name, label: "氏名", displayValue: "藤田 理央", components: ["藤田", "理央"]),
-                .init(id: "work-email", kind: .email, label: "メール · 仕事", displayValue: "rio@example.com", components: ["rio@example.com"]),
-                .init(id: "private-phone", kind: .phone, label: "電話 · 自宅", displayValue: "090-0000-0000", components: ["090-0000-0000"])
+                .init(id: "name", kind: .name, label: L10n.text("field.name"), displayValue: "藤田 理央", components: ["藤田", "理央"]),
+                .init(id: "work-email", kind: .email, label: L10n.fieldLabel(L10n.text("field.email"), L10n.text("field.work")), displayValue: "rio@example.com", components: ["rio@example.com"]),
+                .init(id: "private-phone", kind: .phone, label: L10n.fieldLabel(L10n.text("field.phone"), L10n.text("field.home")), displayValue: "090-0000-0000", components: ["090-0000-0000"])
             ]
             settings.profiles[.work] = .init(fields: ["name", "work-email"])
             settings.profiles[.personal] = .init(fields: ["name", "private-phone"])
@@ -45,12 +45,12 @@ final class PhoneModel: ObservableObject {
             rebuild()
         } else {
             do { settings = try PrivateStore.read(FacetSettings.self, name: "settings.json") ?? FacetSettings() }
-            catch { self.error = "設定を読み込めませんでした。公開項目を設定し直してください。" }
+            catch { self.error = L10n.text("error.settings.read") }
         }
     }
     func requestAccess() async {
         do { _ = try await repository.requestAccess(); await refresh() }
-        catch { self.error = "連絡先へのアクセスを許可できませんでした。iPhoneの設定を確認してください。" }
+        catch { self.error = L10n.text("error.access") }
     }
     func refresh() async {
         guard !demo else { return }
@@ -83,7 +83,7 @@ final class PhoneModel: ObservableObject {
         } catch {
             guard refreshID == token else { return }
             fields = []; rebuild()
-            self.error = "選んだ連絡先を読み込めません。アクセス権と連絡先の存在を確認し、設定から選び直してください。"
+            self.error = L10n.text("error.contact.read")
         }
     }
     func selectContact(_ id: String) async {
@@ -118,7 +118,7 @@ final class PhoneModel: ObservableObject {
         do {
             if !demo { try PrivateStore.write(next, name: "settings.json") }
             settings = next; return true
-        } catch { self.error = "設定を保存できませんでした。変更は適用されていません。"; return false }
+        } catch { self.error = L10n.text("error.settings.save"); return false }
     }
     private func rebuild(force: Bool = false) {
         var generated: [QRCard] = [], failures: [ProfileID: String] = [:]

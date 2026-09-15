@@ -15,7 +15,7 @@ final class WatchModel: ObservableObject {
             try cache?.snapshot.validate()
             synchronizedAt = cache?.receivedAt
             if cache?.hidden != true { snapshot = cache?.snapshot }
-        } catch { self.error = "保存したQRを読み込めません。iPhoneから再同期してください。" }
+        } catch { self.error = L10n.text("watch.read") }
         connectivity.onSnapshot = { [weak self] in self?.receive($0) }
         connectivity.readLatest()
     }
@@ -32,7 +32,7 @@ final class WatchModel: ObservableObject {
             cache = next; snapshot = next.hidden ? nil : next.snapshot
             synchronizedAt = next.receivedAt
             return next.hidden
-        } catch { self.error = "QRを保存できませんでした。"; return nil }
+        } catch { self.error = L10n.text("watch.save"); return nil }
     }
     func clear() {
         do {
@@ -41,7 +41,7 @@ final class WatchModel: ObservableObject {
             try PrivateStore.write(next, name: "watch.json")
             cache = next; snapshot = nil
             connectivity.acknowledge(next.snapshot, hidden: true)
-        } catch { self.error = "QRを消去できませんでした。" }
+        } catch { self.error = L10n.text("watch.erase.error") }
     }
 }
 
@@ -66,7 +66,7 @@ struct WatchView: View {
                         QRView(matrix: card.matrix)
                     } else {
                         Image(systemName: id.symbol).font(.title)
-                        Text("iPhoneで設定・同期してください").font(.caption2).multilineTextAlignment(.center)
+                        Text(L10n.text("watch.setup")).font(.caption2).multilineTextAlignment(.center)
                     }
                 }.padding(.horizontal, 4)
             }
@@ -75,22 +75,22 @@ struct WatchView: View {
                     Text("Facet").font(.headline)
                     WatchSyncStatus(connectivity: model.connectivity)
                     if let date = model.synchronizedAt {
-                        Text("最終同期").font(.caption)
+                        Text(L10n.text("watch.last")).font(.caption)
                         Text(date, format: .dateTime.month().day().hour().minute()).font(.caption2)
                     }
-                    Text("同期後はiPhoneが近くになくても表示できます。").font(.caption2)
-                    Button("保存したQRを消去", role: .destructive) { confirmClear = true }
+                    Text(L10n.text("watch.offline")).font(.caption2)
+                    Button(L10n.text("watch.erase"), role: .destructive) { confirmClear = true }
                 }
             }
         }
         .tabViewStyle(.page)
         .privacySensitive()
         .onChange(of: phase) { _, next in if next == .active { model.connectivity.readLatest() } }
-        .confirmationDialog("保存したQRを消去しますか？", isPresented: $confirmClear) {
-            Button("消去", role: .destructive) { model.clear() }
-        } message: { Text("再表示するにはiPhoneで「Watchに再同期」を押してください。") }
-        .alert("確認してください", isPresented: Binding(get: { model.error != nil }, set: { if !$0 { model.error = nil } })) {
-            Button("OK") { model.error = nil }
+        .confirmationDialog(L10n.text("watch.confirm"), isPresented: $confirmClear) {
+            Button(L10n.text("erase"), role: .destructive) { model.clear() }
+        } message: { Text(L10n.text("watch.restore")) }
+        .alert(L10n.text("attention"), isPresented: Binding(get: { model.error != nil }, set: { if !$0 { model.error = nil } })) {
+            Button(L10n.text("ok")) { model.error = nil }
         } message: { Text(model.error ?? "") }
     }
 }

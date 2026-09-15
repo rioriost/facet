@@ -34,12 +34,12 @@ struct PhoneView: View {
                         if let card = model.cards.first(where: { $0.id == id }), phase == .active {
                             QRView(matrix: card.matrix).padding(.horizontal, 26)
                                 .accessibilityIdentifier("qr-\(id.rawValue)")
-                            Text("相手のカメラで読み取ってもらう").font(.subheadline).foregroundStyle(.secondary)
+                            Text(L10n.text("phone.scan")).font(.subheadline).foregroundStyle(.secondary)
                         } else {
                             Image(systemName: "person.crop.rectangle").font(.system(size: 64)).foregroundStyle(.indigo)
-                            Text(model.issues[id] ?? "設定で公開する項目を選んでください。")
+                            Text(model.issues[id] ?? L10n.text("phone.choose"))
                                 .multilineTextAlignment(.center).padding(.horizontal)
-                            Button("公開項目を設定") { showSettings = true }.buttonStyle(.borderedProminent)
+                            Button(L10n.text("phone.configure")) { showSettings = true }.buttonStyle(.borderedProminent)
                         }
                     }.frame(maxWidth: .infinity, maxHeight: .infinity).tag(id)
                 }
@@ -50,14 +50,14 @@ struct PhoneView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button { showSettings = true } label: { Image(systemName: "gearshape") }
-                        .accessibilityLabel("設定").accessibilityIdentifier("settings")
+                        .accessibilityLabel(L10n.text("settings")).accessibilityIdentifier("settings")
                 }
             }
         }
         .onAppear { showSettings = !model.settings.onboardingComplete }
         .sheet(isPresented: $showSettings) { SettingsView(model: model) }
-        .alert("確認してください", isPresented: Binding(get: { model.error != nil && !showSettings }, set: { if !$0 { model.error = nil } })) {
-            Button("OK") { model.error = nil }
+        .alert(L10n.text("attention"), isPresented: Binding(get: { model.error != nil && !showSettings }, set: { if !$0 { model.error = nil } })) {
+            Button(L10n.text("ok")) { model.error = nil }
         } message: { Text(model.error ?? "") }
         .privacySensitive()
     }

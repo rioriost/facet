@@ -16,27 +16,27 @@ struct SettingsView: View {
         NavigationStack {
             Form {
                 Section {
-                    Text("相手に見せる、自分の一面。").font(.headline)
-                    Text("連絡先を選び、QRごとに公開する項目をオンにしてください。設定はその都度保存されます。")
+                    Text(L10n.text("intro.title")).font(.headline)
+                    Text(L10n.text("intro.body"))
                 }
-                Section("元の連絡先") {
+                Section(L10n.text("contact.source")) {
                     if model.authorization == .notDetermined {
-                        Button("Apple Contactsへのアクセスを許可") { Task { await model.requestAccess() } }
+                        Button(L10n.text("contact.allow")) { Task { await model.requestAccess() } }
                     } else if model.authorization == .denied || model.authorization == .restricted {
-                        Text("連絡先の使用が許可されていません。")
-                        Button("iPhoneの設定を開く") { openURL(URL(string: UIApplication.openSettingsURLString)!) }
+                        Text(L10n.text("contact.denied"))
+                        Button(L10n.text("contact.settings")) { openURL(URL(string: UIApplication.openSettingsURLString)!) }
                     } else {
                         Button { showContacts = true } label: {
-                            LabeledContent("自分の連絡先", value: model.fields.first(where: { $0.kind == .name })?.displayValue ?? "選択してください")
+                            LabeledContent(L10n.text("contact.mine"), value: model.fields.first(where: { $0.kind == .name })?.displayValue ?? L10n.text("contact.select"))
                         }
                         .accessibilityIdentifier("select-contact")
                         if model.authorization == .limited {
-                            Button("アクセスを許可する連絡先を変更") { showAccess = true }
+                            Button(L10n.text("contact.access")) { showAccess = true }
                         }
                     }
                 }
                 Section {
-                    Picker("QRプロファイル", selection: $profile) {
+                    Picker(L10n.text("profile.picker"), selection: $profile) {
                         ForEach(ProfileID.allCases) { Text($0.title).tag($0) }
                     }
                     ForEach(model.fields) { field in
@@ -54,37 +54,37 @@ struct SettingsView: View {
                     if let card = model.cards.first(where: { $0.id == profile }) {
                         QRView(matrix: card.matrix).frame(maxWidth: 220).frame(maxWidth: .infinity)
                     }
-                } header: { Text("公開する項目") } footer: {
-                    Text("初期状態はすべて非公開です。氏名はQRに必要です。「双方」も独立した設定で、自動的には統合しません。元の連絡先を変えると選択をリセットします。")
+                } header: { Text(L10n.text("fields.title")) } footer: {
+                    Text(L10n.text("fields.footer"))
                 }
                 SyncSection(connectivity: model.connectivity, resync: model.resync)
-                Section("このアプリについて") {
-                    Text("Facet – Contact QR · 完全無料")
-                    NavigationLink("プライバシー") {
+                Section(L10n.text("about")) {
+                    Text(L10n.text("about.free"))
+                    NavigationLink(L10n.text("privacy")) {
                         ScrollView {
-                            Text("連絡先はiPhone内で処理し、開発者へ送信しません。Watchには公開を許可した情報のQRだけを送ります。QRを読み取った相手はその情報を保存できます。\n\nWatchがオフラインの間は、iPhoneで設定を変更しても以前のQRが残ります。Watchの『保存したQRを消去』から端末内のQRを消去できます。\n\n写真・メモ・誕生日はQRに含めません。広告、解析、アカウント、アプリ内課金はありません。\n\nプライバシーポリシーとサポートはGitHubで公開しています。お問い合わせに連絡先情報やQRを添付しないでください。")
+                            Text(L10n.text("privacy.body"))
                                 .padding()
-                            Link("Privacy Policy", destination: URL(string: "https://github.com/rioriost/facet/blob/main/PRIVACY_POLICY.md")!).padding()
-                            Link("Support", destination: URL(string: "https://github.com/rioriost/facet/blob/main/SUPPORT.md")!).padding()
-                        }.navigationTitle("プライバシー")
+                            Link(L10n.text("privacy.policy"), destination: URL(string: "https://github.com/rioriost/facet/blob/main/PRIVACY_POLICY.md")!).padding()
+                            Link(L10n.text("support"), destination: URL(string: "https://github.com/rioriost/facet/blob/main/SUPPORT.md")!).padding()
+                        }.navigationTitle(L10n.text("privacy"))
                     }
-                    Button("設定とQRをすべて消去", role: .destructive) { showReset = true }
+                    Button(L10n.text("reset.button"), role: .destructive) { showReset = true }
                 }
             }
-            .navigationTitle("公開設定")
+            .navigationTitle(L10n.text("settings.title"))
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("完了") { model.finishSetup(); if model.settings.onboardingComplete { dismiss() } }
+                    Button(L10n.text("done")) { model.finishSetup(); if model.settings.onboardingComplete { dismiss() } }
                 }
             }
             .sheet(isPresented: $showContacts) { ContactListView(model: model) }
             .contactAccessPicker(isPresented: $showAccess) { _ in Task { await model.refresh() } }
-            .confirmationDialog("公開設定と保存済みQRを消去しますか？", isPresented: $showReset, titleVisibility: .visible) {
-                Button("すべて消去", role: .destructive) { model.reset() }
-            } message: { Text("オフラインのWatchのQRは、再接続するかWatchで消去するまで残ります。") }
+            .confirmationDialog(L10n.text("reset.confirm"), isPresented: $showReset, titleVisibility: .visible) {
+                Button(L10n.text("reset.all"), role: .destructive) { model.reset() }
+            } message: { Text(L10n.text("reset.footer")) }
         }
-        .alert("確認してください", isPresented: Binding(get: { model.error != nil }, set: { if !$0 { model.error = nil } })) {
-            Button("OK") { model.error = nil }
+        .alert(L10n.text("attention"), isPresented: Binding(get: { model.error != nil }, set: { if !$0 { model.error = nil } })) {
+            Button(L10n.text("ok")) { model.error = nil }
         } message: { Text(model.error ?? "") }
         .interactiveDismissDisabled(!model.settings.onboardingComplete)
     }
@@ -96,9 +96,9 @@ private struct SyncSection: View {
     var body: some View {
         Section {
             Text(connectivity.status).font(.subheadline)
-            Button("Watchに再同期") { resync() }
+            Button(L10n.text("sync.button")) { resync() }
         } header: { Text("Apple Watch") } footer: {
-            Text("Watchがオフラインの間は、以前のQRが残ります。急いで消す場合はWatch側で消去してください。")
+            Text(L10n.text("sync.footer"))
         }
     }
 }
@@ -110,14 +110,14 @@ private struct ContactListView: View {
     var body: some View {
         NavigationStack {
             List(model.contacts.filter { search.isEmpty || $0.name.localizedCaseInsensitiveContains(search) }) { contact in
-                Button(contact.name.isEmpty ? "名前のない連絡先" : contact.name) {
+                Button(contact.name.isEmpty ? L10n.text("contact.unnamed") : contact.name) {
                     Task { await model.selectContact(contact.id); dismiss() }
                 }
             }
-            .overlay { if model.contacts.isEmpty { ContentUnavailableView("連絡先がありません", systemImage: "person.crop.rectangle", description: Text("Contactsに自分の連絡先を追加し、アクセスを許可してください。")) } }
-            .searchable(text: $search, prompt: "名前で検索")
-            .navigationTitle("自分の連絡先を選択")
-            .toolbar { Button("キャンセル") { dismiss() } }
+            .overlay { if model.contacts.isEmpty { ContentUnavailableView(L10n.text("contact.empty"), systemImage: "person.crop.rectangle", description: Text(L10n.text("contact.empty.body"))) } }
+            .searchable(text: $search, prompt: L10n.text("contact.search"))
+            .navigationTitle(L10n.text("contact.choose"))
+            .toolbar { Button(L10n.text("cancel")) { dismiss() } }
         }
     }
 }

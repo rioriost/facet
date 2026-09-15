@@ -4,7 +4,7 @@ public enum ProfileID: String, Codable, CaseIterable, Identifiable, Sendable {
     case work, personal, combined
     public var id: String { rawValue }
     public var title: String {
-        switch self { case .work: return "仕事用"; case .personal: return "プライベート用"; case .combined: return "双方" }
+        switch self { case .work: return L10n.text("profile.work"); case .personal: return L10n.text("profile.personal"); case .combined: return L10n.text("profile.combined") }
     }
     public var symbol: String {
         switch self { case .work: return "briefcase"; case .personal: return "house"; case .combined: return "square.stack.3d.up" }
@@ -55,9 +55,9 @@ public enum FacetError: Error, LocalizedError, Equatable {
     case nameRequired, tooDense, invalidSnapshot
     public var errorDescription: String? {
         switch self {
-        case .nameRequired: return "氏名を選ぶとQRを表示できます。"
-        case .tooDense: return "QRが細かすぎます。公開する項目を減らしてください。"
-        case .invalidSnapshot: return "受信データを読み込めません。iPhoneから再同期してください。"
+        case .nameRequired: return L10n.text("error.name")
+        case .tooDense: return L10n.text("error.dense")
+        case .invalidSnapshot: return L10n.text("error.snapshot")
         }
     }
 }

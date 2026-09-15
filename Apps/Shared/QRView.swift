@@ -25,6 +25,6 @@ struct QRView: View {
         }
         .aspectRatio(1, contentMode: .fit)
         .background(.white)
-        .accessibilityLabel("連絡先を共有するQRコード")
+        .accessibilityLabel(L10n.text("qr.accessibility"))
     }
 }
