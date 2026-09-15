@@ -10,7 +10,8 @@ Apple Contactsを正本に、自分の連絡先を仕事用・プライベート
 
 ## 特徴
 
-- 初回起動と設定アイコンから元の連絡先・公開項目を設定。
+- 初回起動と設定アイコンから共有する連絡先1件・公開項目を設定。
+- **連絡先を編集した後は、Facetで同じ連絡先を選び直して更新してください。** 選択済みの情報はiPhone内に保存します。
 - 電話・メール・住所・URLの個々の値をプロファイル別に選択。初期値は非公開。
 - 「双方」も独立した許可リスト。写真・メモ・誕生日は含めません。
 - iPhoneとWatchで横スワイプ切替。WatchはContactsにアクセスしません。
@@ -20,13 +21,13 @@ Apple Contactsを正本に、自分の連絡先を仕事用・プライベート
 ## 開発環境
 
 - 最小対応: iOS 18.0 / watchOS 11.0。
-- 実測環境: Xcode 27 beta (27A5228h)、Swift 6.4、XcodeGen 2.46.0、macOS 27。
+- 実測環境: Xcode 27 (27A266a)、Swift 6.4、XcodeGen 2.46.0、macOS 27。
 - Bundle ID: `st.rio.facet` / `st.rio.facet.watchkitapp`。
 - 外部ライブラリなし。SwiftUI、Contacts、Core Image（iPhoneのみ）、WatchConnectivity。
 
 ```sh
 # 環境に合わせて変更。システムのxcode-selectは変更不要。
-export DEVELOPER_DIR=/Applications/Xcode-beta.app/Contents/Developer
+export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
 swift test
 xcodegen generate
 open Facet.xcodeproj
@@ -48,9 +49,9 @@ xcodebuild -project Facet.xcodeproj -scheme Facet \
 scripts/test-contacts.sh com.apple.CoreSimulator.SimRuntime.iOS-26-3
 ```
 
-使い捨てSimulatorを作成し、OSのContacts権限を許可→取消して、個別メールの選択、QRへの非公開値混入防止、設定の再起動保持、Contactsの編集・追加・削除、権限取消後の非表示を検証します。終了時にそのSimulatorだけを削除します。ログと結果は`work/contacts-日時/`に残ります。ランタイムIDは導入済みのiOSランタイムに合わせて変更してください。
+使い捨てSimulatorで架空の連絡先を作り、システムの1件選択、公開項目の保持、編集後の手動更新、リセット後の再選択、アクセス権なしの選択を検証します。終了時にそのSimulatorだけを削除します。ログは`work/contacts-日時/`に残ります。
 
-`FacetContactsTests` schemeはこの手順用です。3ケースは権限状態と連絡先の存在状態が異なるため、一括実行せずスクリプトを使います。`--contacts-fixture`と`--reset-fixture-settings`はDebug Simulator限定のテスト引数で、前者は架空の連絡先を作成し、後者はFacetの設定だけを初期化します。実機・Releaseには含まれません。
+`FacetContactsTests` schemeはこの手順用です。テスト用連絡先の作成・編集にはSimulatorのアクセス権を使用しますが、製品の選択操作はアクセス権を要求しません。`--contacts-fixture`、`--fixture-import`、`--fixture-update`、`--reset-fixture-settings`などのデータ操作はDebug Simulator限定です。
 
 Debug限定の起動引数`--demo`で架空の連絡先によるUI検証ができます。このモードはContactsにアクセスせず、設定を保存せず、WatchへQRを送信しません。Releaseには含まれません。
 

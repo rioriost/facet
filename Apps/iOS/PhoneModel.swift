@@ -7,11 +7,9 @@ import FacetCore
 final class PhoneModel: ObservableObject {
     @Published private(set) var settings = FacetSettings()
     @Published private(set) var fields: [ContactField] = []
-    @Published private(set) var contacts: [ContactSummary] = []
     @Published private(set) var cards: [QRCard] = []
     @Published private(set) var issues: [ProfileID: String] = [:]
     @Published var error: String?
-    @Published private(set) var authorization = CNContactStore.authorizationStatus(for: .contacts)
     let connectivity = Connectivity()
     private let repository = ContactRepository()
     private var refreshID = UUID()
@@ -48,49 +46,57 @@ final class PhoneModel: ObservableObject {
             catch { self.error = L10n.text("error.settings.read") }
         }
     }
-    func requestAccess() async {
-        do { _ = try await repository.requestAccess(); await refresh() }
-        catch { self.error = L10n.text("error.access") }
+    var selectedContactName: String? {
+        fields.first(where: { $0.kind == .name })?.displayValue
+    }
+    func selectContact(_ contact: CNContact) {
+        importContact(contact.identifier, fields: ContactRepository.fields(from: contact))
+    }
+    private func importContact(_ id: String, fields: [ContactField]) {
+        refreshID = UUID()
+        var next = settings
+        next.selectContact(id)
+        next.contactFields = fields
+        guard save(next) else { return }
+        self.fields = ContactRepository.localized(fields)
+        rebuild()
     }
     func refresh() async {
         guard !demo else { return }
         #if DEBUG && targetEnvironment(simulator)
         if ProcessInfo.processInfo.arguments.contains("--contacts-fixture") {
-            if fixtureTask == nil { fixtureTask = Task { try await repository.prepareUITestContact() } }
+            let firstFixtureLoad = fixtureTask == nil
+            if firstFixtureLoad { fixtureTask = Task { try await repository.prepareUITestContact() } }
             do {
                 let id = try await fixtureTask!.value
-                if settings.contactID == nil {
-                    var next = settings; next.selectContact(id)
-                    guard save(next) else { return }
+                if firstFixtureLoad && ProcessInfo.processInfo.arguments.contains("--fixture-import") {
+                    importContact(id, fields: try await repository.fields(for: id))
                 }
             } catch { self.error = error.localizedDescription; return }
         }
         #endif
         let token = UUID(); refreshID = token
-        authorization = CNContactStore.authorizationStatus(for: .contacts)
-        fields = []; cards = []
-        guard authorization == .authorized || authorization == .limited else {
-            contacts = []; rebuild(); return
+        if let cached = settings.contactFields {
+            fields = ContactRepository.localized(cached)
+            rebuild()
+            return
         }
-        let contactID = settings.contactID
+        fields = []; rebuild()
+        // One-time migration of build 1 settings, using only an already granted permission.
+        guard let id = settings.contactID else { return }
+        let authorization = CNContactStore.authorizationStatus(for: .contacts)
+        guard authorization == .authorized || authorization == .limited else { return }
         do {
-            let list = try await repository.list()
+            let loaded = try await repository.fields(for: id)
             guard refreshID == token else { return }
-            contacts = list
-            let loaded = try await contactID.mapAsync { try await self.repository.fields(for: $0) } ?? []
-            guard refreshID == token else { return }
-            contacts = list; fields = loaded; rebuild()
+            importContact(id, fields: loaded)
         } catch {
             guard refreshID == token else { return }
-            fields = []; rebuild()
-            self.error = L10n.text("error.contact.read")
+            // A removed/inaccessible legacy selection needs manual selection only once.
+            var next = settings
+            next.contactID = nil
+            _ = save(next)
         }
-    }
-    func selectContact(_ id: String) async {
-        var next = settings; next.selectContact(id)
-        guard save(next) else { return }
-        fields = []; rebuild()
-        await refresh()
     }
     func setField(_ id: String, in profile: ProfileID, enabled: Bool) {
         var next = settings
@@ -107,7 +113,7 @@ final class PhoneModel: ObservableObject {
         refreshID = UUID()
         var next = FacetSettings()
         next.watchRestoreToken = settings.watchRestoreToken
-        if save(next) { fields = []; contacts = []; rebuild(force: true) }
+        if save(next) { fields = []; rebuild(force: true) }
     }
     func resync() {
         var next = settings
@@ -133,12 +139,5 @@ final class PhoneModel: ObservableObject {
             latest = WatchSnapshot(cards: generated, restoreToken: settings.watchRestoreToken)
         }
         if let latest, !demo { connectivity.send(latest) }
-    }
-}
-
-private extension Optional where Wrapped == String {
-    func mapAsync<T>(_ transform: (String) async throws -> T) async rethrows -> T? {
-        if let value = self { return try await transform(value) }
-        return nil
     }
 }

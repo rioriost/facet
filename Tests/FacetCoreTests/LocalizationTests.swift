@@ -12,7 +12,7 @@ final class LocalizationTests: XCTestCase {
             let values = try XCTUnwrap(PropertyListSerialization.propertyList(from: data, format: nil) as? [String: String])
             if let baseline { XCTAssertEqual(Set(values.keys), baseline, language) }
             else { baseline = Set(values.keys) }
-            XCTAssertEqual(values.count, 86, language)
+            XCTAssertNotNil(values["contact.refresh"], language)
             for (key, value) in values {
                 XCTAssertFalse(value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, "\(language): \(key)")
             }

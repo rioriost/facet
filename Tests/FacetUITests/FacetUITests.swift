@@ -7,7 +7,7 @@ final class FacetUITests: XCTestCase {
         app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
         app.launch()
         XCTAssertTrue(app.navigationBars["公開設定"].waitForExistence(timeout: 10))
-        XCTAssertTrue(app.buttons["Apple Contactsへのアクセスを許可"].exists)
+        XCTAssertTrue(app.buttons["select-contact"].exists)
     }
     @MainActor func testDemoProfilesAndConsentChange() {
         let app = XCUIApplication()

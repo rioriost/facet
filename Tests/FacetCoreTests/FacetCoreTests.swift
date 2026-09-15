@@ -63,3 +63,35 @@ final class FacetCoreTests: XCTestCase {
         XCTAssertThrowsError(try WatchSnapshot(cards: [.init(id: .work, matrix: matrix), .init(id: .work, matrix: matrix)]).encoded())
     }
 }
+
+final class ContactSnapshotTests: XCTestCase {
+    func testSnapshotRoundTripAndContactSwitch() throws {
+        var settings = FacetSettings()
+        settings.selectContact("own")
+        var field = ContactField(id: "email:1", kind: .email, label: "Email", displayValue: "a@example.com", components: ["a@example.com"])
+        field.contactLabel = "work"
+        settings.contactFields = [field]
+        settings.profiles[.work] = .init(fields: ["email:1"])
+        let copy = try JSONDecoder().decode(FacetSettings.self, from: JSONEncoder().encode(settings))
+        XCTAssertEqual(copy, settings)
+        settings.selectContact("own")
+        XCTAssertEqual(settings.contactFields, [field])
+        XCTAssertEqual(settings.profiles[.work]?.fields, ["email:1"])
+        settings.selectContact("another")
+        XCTAssertNil(settings.contactFields)
+        XCTAssertTrue(settings.profiles.values.allSatisfy { $0.fields.isEmpty })
+        XCTAssertNil(FacetSettings().contactFields)
+    }
+    func testBuildOneSettingsDecodeWithoutSnapshot() throws {
+        var settings = FacetSettings()
+        settings.contactID = "legacy"
+        settings.profiles[.work] = .init(fields: ["name"])
+        let data = try JSONEncoder().encode(settings)
+        var json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        json.removeValue(forKey: "contactFields")
+        let migrated = try JSONDecoder().decode(FacetSettings.self, from: JSONSerialization.data(withJSONObject: json))
+        XCTAssertEqual(migrated.contactID, "legacy")
+        XCTAssertEqual(migrated.profiles[.work]?.fields, ["name"])
+        XCTAssertNil(migrated.contactFields)
+    }
+}

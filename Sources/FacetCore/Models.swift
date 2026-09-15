@@ -18,6 +18,7 @@ public struct ProfileSelection: Codable, Equatable, Sendable {
 
 public struct FacetSettings: Codable, Equatable, Sendable {
     public var contactID: String?
+    public var contactFields: [ContactField]?
     public var profiles: [ProfileID: ProfileSelection]
     public var onboardingComplete: Bool
     public var watchRestoreToken: UUID?
@@ -29,6 +30,7 @@ public struct FacetSettings: Codable, Equatable, Sendable {
     public mutating func selectContact(_ id: String) {
         guard contactID != id else { return }
         contactID = id
+        contactFields = nil
         profiles = Dictionary(uniqueKeysWithValues: ProfileID.allCases.map { ($0, ProfileSelection()) })
     }
 }
@@ -39,10 +41,11 @@ public enum FieldKind: String, Codable, Sendable {
 
 /// Values are components, never raw vCard syntax. Name: family/given/middle/prefix/suffix.
 /// Address: PO box/extended/street/city/region/postcode/country.
-public struct ContactField: Identifiable, Equatable, Sendable {
+public struct ContactField: Identifiable, Codable, Equatable, Sendable {
     public var id: String
     public var kind: FieldKind
     public var label: String
+    public var contactLabel: String?
     public var displayValue: String
     public var components: [String]
     public init(id: String, kind: FieldKind, label: String, displayValue: String, components: [String]) {

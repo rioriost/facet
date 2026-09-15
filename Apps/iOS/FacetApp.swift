@@ -13,9 +13,7 @@ struct FacetApp: App {
                 .onChange(of: scenePhase) { _, phase in
                     if phase == .active { Task { await model.refresh() } }
                 }
-                .onReceive(NotificationCenter.default.publisher(for: .CNContactStoreDidChange).receive(on: DispatchQueue.main)) { _ in
-                    Task { await model.refresh() }
-                }
+
         }
     }
 }

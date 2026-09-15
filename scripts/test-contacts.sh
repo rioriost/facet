@@ -1,5 +1,5 @@
 #!/bin/zsh
-# Real Contacts storage, per-value consent, persistence, and revoked access on a disposable Simulator.
+# System single-contact picker, manual refresh, and cached disclosure on a disposable Simulator.
 set -euo pipefail
 facet_root="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$facet_root"
@@ -21,25 +21,20 @@ xcodebuild -project Facet.xcodeproj -scheme FacetContactsTests \
     -derivedDataPath work/DerivedData CODE_SIGNING_ALLOWED=NO \
     build-for-testing > "$facet_output/build.log" 2>&1
 xcrun simctl install "$facet_simulator" work/DerivedData/Build/Products/Debug-iphonesimulator/Facet.app
+run_case() {
+    local facet_case="$1" facet_label="$2"
+    xcodebuild -project Facet.xcodeproj -scheme FacetContactsTests \
+        -destination "platform=iOS Simulator,id=$facet_simulator" -parallel-testing-enabled NO \
+        "-only-testing:FacetUITests/FacetContactsUITests/$facet_case" \
+        -derivedDataPath work/DerivedData -resultBundlePath "$facet_output/$facet_label.xcresult" \
+        CODE_SIGNING_ALLOWED=NO test-without-building > "$facet_output/$facet_label.log" 2>&1
+    rg -q "Executed 1 test, with 0 failures" "$facet_output/$facet_label.log"
+}
 xcrun simctl privacy "$facet_simulator" grant contacts st.rio.facet
-xcodebuild -project Facet.xcodeproj -scheme FacetContactsTests \
-    -destination "platform=iOS Simulator,id=$facet_simulator" -parallel-testing-enabled NO \
-    -only-testing:FacetUITests/FacetContactsUITests/testContactsSelectionPersistsAndExcludesPrivateValues \
-    -derivedDataPath work/DerivedData -resultBundlePath "$facet_output/Granted.xcresult" \
-    CODE_SIGNING_ALLOWED=NO test-without-building > "$facet_output/granted.log" 2>&1
-rg -q "Executed 1 test, with 0 failures" "$facet_output/granted.log"
+run_case testManualSelectionAndRefreshPreserveConsent manual
 xcrun simctl privacy "$facet_simulator" revoke contacts st.rio.facet
-xcodebuild -project Facet.xcodeproj -scheme FacetContactsTests \
-    -destination "platform=iOS Simulator,id=$facet_simulator" -parallel-testing-enabled NO \
-    -only-testing:FacetUITests/FacetContactsUITests/testRevokedContactsHidesPreviouslyConfiguredQR \
-    -derivedDataPath work/DerivedData -resultBundlePath "$facet_output/Revoked.xcresult" \
-    CODE_SIGNING_ALLOWED=NO test-without-building > "$facet_output/revoked.log" 2>&1
-rg -q "Executed 1 test, with 0 failures" "$facet_output/revoked.log"
+run_case testPickerAndSavedQRWorkWithoutContactsPermission denied
+run_case testResetAllowsSelectingContactAgainWithoutRestart reset
 xcrun simctl privacy "$facet_simulator" grant contacts st.rio.facet
-xcodebuild -project Facet.xcodeproj -scheme FacetContactsTests \
-    -destination "platform=iOS Simulator,id=$facet_simulator" -parallel-testing-enabled NO \
-    -only-testing:FacetUITests/FacetContactsUITests/testDeletedContactHidesQRAndAllowsReselection \
-    -derivedDataPath work/DerivedData -resultBundlePath "$facet_output/Deleted.xcresult" \
-    CODE_SIGNING_ALLOWED=NO test-without-building > "$facet_output/deleted.log" 2>&1
-rg -q "Executed 1 test, with 0 failures" "$facet_output/deleted.log"
-print "Contacts selection, update, revocation, and deletion passed. Evidence: $facet_output"
+run_case testDeletedOriginalDoesNotChangeSavedCopy deleted
+print "Single selection, manual refresh, permission-free picker, reset, and cached copy passed. Evidence: $facet_output"

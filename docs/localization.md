@@ -64,3 +64,7 @@ python3 scripts/check-localizations.py \
 Watchランタイムでの表示確認、最大Dynamic Type、母語話者レビューは別途必要。外部のGitHub文書本文やApp Store掲載文・スクリーンショットの全12言語化はこのアプリ内対応に含めていない。
 
 参考: [Apple: Localizing package resources](https://developer.apple.com/documentation/xcode/localizing-package-resources)、[Apple: Information Property List Files](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/AboutInformationPropertyListFiles.html)。
+
+## Build 2
+
+連絡先の単一選択に合わせて権限関連の不要な文言を削除し、共有する連絡先・端末内保存・編集後の再選択を12言語で更新。現行カタログは74キー。キー集合、空文字、書式プレースホルダー、両アプリ内の収録を検証する。App Store Connectの12言語の概要にも手動更新を追記済み。

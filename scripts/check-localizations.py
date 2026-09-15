@@ -21,7 +21,6 @@ def tables(folder, filename):
 def check_resources(folder):
     catalogs = tables(folder, 'Localizable.strings')
     reference = catalogs['en']
-    assert len(reference) == 86
     for language, values in catalogs.items():
         assert values.keys() == reference.keys(), language
         for key, value in values.items():
@@ -58,4 +57,4 @@ if args.app:
         assert info['CFBundleDevelopmentRegion'] == 'en'
         if watch:
             assert 'NSContactsUsageDescription' not in info
-print('PASS: 12 localizations, 86 UI strings, permission descriptions, format placeholders and source references' + ('; both built apps verified' if args.app else ''))
+print(f'PASS: 12 localizations, {len(catalogs["en"])} UI strings, permission descriptions, format placeholders and source references' + ('; both built apps verified' if args.app else ''))

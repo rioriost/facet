@@ -108,3 +108,7 @@ UIテストの初回設定ケースはDebug Simulator限定の引数でFacet設�
 - Watchランタイムでの表示、実機、最大Dynamic Type、母語話者レビューは今回の合格範囲に含めない。
 
 証跡: `work/localization-core-tests.log`、`work/localization-ui.xcresult`（多言語テスト成功／既存端末の初回権限テスト失敗を含む）、`work/localization-first-launch.xcresult`（通常UI 2件成功）、`work/localization-release.log`、`work/localization-screens/`。検査スクリプトは `scripts/check-localizations.py`。
+
+## Build 2: 単一選択とWatch拡大
+
+共通22テスト、12言語74キー、iPhone/Watch Release Archive検証が成功。実Contactsを使用する4結合テストで、1件選択・手動更新・キャンセル・再起動・非公開値排除・権限なし選択・リセット後の再選択・削除後のコピー保持を確認。Watchの39スクリーンショットをQRデコードして確認。詳細と証跡は[実機フィードバック](device-feedback-1.md)。以前の自動更新・権限取消後非表示の期待値は、ユーザーが選んだ手動更新方式に置き換えた。実機の光学読取とWatch通信はTestFlightで再確認する。

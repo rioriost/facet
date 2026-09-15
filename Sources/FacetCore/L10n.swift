@@ -1,7 +1,7 @@
 import Foundation
 
 /// Shared by iPhone and Watch. Localization is resolved on the displaying device;
-/// translated labels are never serialized into settings or the Watch payload.
+/// cached contact labels are rebuilt on iPhone; Watch receives only QR patterns.
 public enum L10n {
     public static func text(_ key: String) -> String {
         Bundle.module.localizedString(forKey: key, value: nil, table: "Localizable")

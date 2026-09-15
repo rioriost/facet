@@ -34,7 +34,7 @@
 
 ## 審査メモ案
 
-Facet is a free contact-sharing app. It does not scan QR codes, use accounts, show ads, or offer in-app purchases. Create a sample contact in Apple Contacts, open Facet, allow access to that contact, select it, and enable the name and desired fields separately for each of the three profiles. The recipient uses the standard Camera app. The Watch companion needs initial configuration and synchronization from its paired iPhone, then displays QR codes offline. No contact information is sent to a developer server.
+Facet is a free contact-sharing app. It does not scan QR codes, use accounts, show ads, or offer in-app purchases. Create a sample contact in Apple Contacts, open Facet, choose that single contact in the system picker, and enable the name and desired fields separately for each of the three profiles. After editing the contact in Contacts, select the same contact again in Facet to update it. The recipient uses the standard Camera app. The Watch companion needs initial configuration and synchronization from its paired iPhone, then displays QR codes offline. No contact information is sent to a developer server.
 
 ## 一次資料
 
@@ -42,3 +42,7 @@ Facet is a free contact-sharing app. It does not scan QR codes, use accounts, sh
 - [App Review: Broken links / Placeholder content](https://developer.apple.com/app-store/review/): 公開予定のままでは提出しない。
 - [App Privacy](https://developer.apple.com/help/app-store-connect/reference/app-privacy/): Privacy Policy URLは必須。
 - [Privacy manifests](https://developer.apple.com/documentation/bundleresources/privacy-manifest-files): 使用API/収集実態に即して申告。
+
+## Build 2の説明更新
+
+2026-09-15: App Store Connectの12言語すべての概要に、連絡先を編集した後は同じ連絡先を再選択する必要がある旨を追加し、再読み込み後に全言語の保存を確認。審査メモも単一選択と手動更新に変更。保存済みの1件を使い続ける動作を設定画面とPrivacy Policyにも明記。旧スクリーンショットは公開審査前に新しい設定画面・Watch表示に差し替える。
