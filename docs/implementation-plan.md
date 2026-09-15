@@ -76,3 +76,30 @@ WCSession.updateApplicationContextで最新状態を置換し、受信後ロー�
 - [Contactsへのアクセスと限定アクセス](https://developer.apple.com/documentation/contacts/accessing-the-contact-store)
 - [Watchプロジェクト構成](https://developer.apple.com/documentation/watchos-apps/setting-up-a-watchos-project)
 - [WatchConnectivity](https://developer.apple.com/documentation/watchconnectivity/transferring-data-with-watch-connectivity)
+
+## レビュー後の確定事項（2026-09-15）
+
+### 公開境界
+
+- 「双方」は独立した許可リストとする。仕事用・私用から自動で和集合を生成しない。画面でも説明する。
+- 初期状態は全項目OFF。氏名も明示的に許可が必要。vCardの必須FN/Nを構成する「氏名」を未選択ならそのQRを無効にする。
+- 電話・メール・住所・URLはカテゴリ単位でなく個々の値単位で選ぶ。Contactsのlabel文字列をvCardの構文として流用しない。
+- 元の連絡先を変更した場合、すべての許可をリセットする。新たに追加されたContactsのフィールドは自動許可しない。
+- iOSのマイカードを自動特定する公開APIに依存しない。アクセス許可後、ユーザーが正本の連絡先を明示的に選ぶ。
+- バックグラウンドでの常時監視はしない。起動・復帰・Contacts変更通知で正本を再読込する。権限喪失・削除・取得失敗時はQRを非表示にし、空スナップショットをWatchへ送る。
+
+### 同期・削除
+
+- WatchにvCard文字列は不要。同期・保存するのは許可済みvCardから作った白黒モジュール、固定プロファイルID、生成日時、UUIDのみとする。非公開データも元のcontact identifierも送らない。
+- スナップショットはバージョンとサイズを検証し、丸ごと置換する。空スナップショットは削除命令として扱う。
+- updateApplicationContext受付成功は受信確認ではない。WatchからUUID受信確認を返し、「送信待ち」と「Watch受信済み」を区別する。再起動・再activation・Watch切替で最新状態を再送する。
+- 通信不能中のWatchに即時の遠隔消去は保証できない。Watchにもローカル消去を用意し、設定とPrivacy Policyで説明する。ローカル消去後は同じスナップショットを再表示しない。
+- 個人情報をログに書かない。ファイルはApplication Supportに原子的保存、端末のファイル保護、バックアップ除外。iPhoneは連絡先の全文を保存せずIDと許可設定のみ保存する。
+
+### QR・品質ゲート
+
+- vCard 3.0のCRLF、テキストエスケープ、UTF-8文字を壊さない75オクテット折返しを実装する。名前・構造化住所も区切りを個別エスケープする。
+- 誤り訂正M、最大600 UTF-8 bytes、最大89モジュールを初期保守的上限とする。実機で読み取りが悪ければ下げる。自動切捨てはしない。
+- 読取機能をアプリへ加えず、検証用のApple Vision/Contactsを使用して生成した日本語vCardの往復を検証する。
+- Watchに最終同期日時を表示。Always Onで非active時はQRを隠す。小画面はQR領域を優先し、動的文字サイズや設定画面は実機で確認する。
+- 最低OSでの実行とWatchの光学読取・通信断/再接続はリリースゲート。SDKでコンパイルできただけでは合格にしない。
