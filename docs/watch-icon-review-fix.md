@@ -27,3 +27,5 @@ Local evidence: `work/watch-icon-fix/build.log`, `simulator-build.log`, `watch-a
 ## Scope and release status
 
 This is verification of the specific icon remediation, not a renewed full submission audit. Simulator launch was verified; actual Watch Home presentation and a new signed distribution archive were not tested in this run. No App Store Connect metadata edit, upload, review reply or resubmission was performed. Build 3 must be archived/uploaded and selected to replace the reviewed build 2 before Apple can review the corrected icon.
+
+Subsequent release work on September 16 completed the signed archive, upload and resubmission. Build 3 is **Waiting for Review** as of 04:22 JST; see the [resubmission record](app-review-resubmission-2026-09-16.md).

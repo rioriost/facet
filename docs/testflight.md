@@ -63,3 +63,13 @@ App Store Connectのビルド: https://appstoreconnect.apple.com/teams/e392d05d-
 - 公開審査への追加・提出は行わない。公開前には変更した設定画面とWatchのストア画像の差し替え、および指定実機での再確認が必要。
 
 Build 2: https://appstoreconnect.apple.com/teams/e392d05d-0ae2-4ed0-95bc-3229f9d1384e/apps/6812192295/testflight/ios/f41205aa-b819-44b3-8eab-c36672b6dd26
+
+## Watchアイコン修正: 1.0.0 (3)
+
+2026-09-16:
+
+- ソース `07b75dc`。Watchアイコンを明るい背景に変更し、連絡先・QRの動作はビルド2から変更なし。
+- 正式版Xcode 27.0 (27A266a)でArchive・署名検証が成功。04:12 JSTにアップロード成功、Apple側の処理完了を確認。
+- App Store Connectでビルド3を選択し、Watchアイコンの明るい円形プレビューを確認。
+- 04:22 JSTに公開審査へ再提出し、1.0.0 (3)の「審査待ち」を確認。
+- 詳細と確認範囲: [再提出記録](app-review-resubmission-2026-09-16.md)。
