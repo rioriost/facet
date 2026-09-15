@@ -69,6 +69,7 @@ struct WatchView: View {
             ScrollView {
                 VStack(spacing: 10) {
                     Text("Facet").font(.headline)
+                    WatchSyncStatus(connectivity: model.connectivity)
                     if let date = model.snapshot?.createdAt {
                         Text("最終同期").font(.caption)
                         Text(date, format: .dateTime.month().day().hour().minute()).font(.caption2)
@@ -88,4 +89,9 @@ struct WatchView: View {
             Button("OK") { model.error = nil }
         } message: { Text(model.error ?? "") }
     }
+}
+
+private struct WatchSyncStatus: View {
+    @ObservedObject var connectivity: Connectivity
+    var body: some View { Text(connectivity.status).font(.caption2).multilineTextAlignment(.center) }
 }
