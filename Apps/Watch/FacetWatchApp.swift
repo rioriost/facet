@@ -58,33 +58,42 @@ struct WatchView: View {
     @Environment(\.scenePhase) private var phase
     @Environment(\.isLuminanceReduced) private var isLuminanceReduced
     var body: some View {
-        TabView(selection: $selectedPage) {
-            ForEach(ProfileID.allCases) { id in
-                VStack(spacing: 2) {
-                    Text(id.title).font(.caption2).lineLimit(1).minimumScaleFactor(0.7)
-                    if let card = model.snapshot?.cards.first(where: { $0.id == id }),
-                       phase == .active, !isLuminanceReduced {
-                        QRView(matrix: card.matrix)
-                    } else {
-                        Image(systemName: id.symbol).font(.title)
-                        Text(L10n.text("watch.setup")).font(.caption2).multilineTextAlignment(.center)
-                    }
-                }.padding(.horizontal, 4).tag(id.rawValue)
-            }
-            ScrollView {
-                VStack(spacing: 10) {
-                    Text("Facet").font(.headline)
-                    WatchSyncStatus(connectivity: model.connectivity)
-                    if let date = model.synchronizedAt {
-                        Text(L10n.text("watch.last")).font(.caption)
-                        Text(date, format: .dateTime.month().day().hour().minute()).font(.caption2)
-                    }
-                    Text(L10n.text("watch.offline")).font(.caption2)
-                    Button(L10n.text("watch.erase"), role: .destructive) { confirmClear = true }
+        GeometryReader { screen in
+            TabView(selection: $selectedPage) {
+                ForEach(ProfileID.allCases) { id in
+                    GeometryReader { geometry in
+                        let side = max(1, screen.size.width)
+                        VStack(spacing: 2) {
+                            HStack {
+                                Text(id.title).font(.caption2).lineLimit(1).minimumScaleFactor(0.7)
+                                Spacer(minLength: 80)
+                            }.padding(.leading, 8).frame(width: side, height: 18)
+                            if let card = model.snapshot?.cards.first(where: { $0.id == id }),
+                               phase == .active, !isLuminanceReduced {
+                                QRView(matrix: card.matrix).frame(width: side, height: side)
+                            } else {
+                                Image(systemName: id.symbol).font(.title)
+                                Text(L10n.text("watch.setup")).font(.caption2).multilineTextAlignment(.center)
+                            }
+                        }.frame(width: geometry.size.width, height: geometry.size.height)
+                    }.tag(id.rawValue)
                 }
-            }.tag("settings")
+                ScrollView {
+                    VStack(spacing: 10) {
+                        Text("Facet").font(.headline)
+                        WatchSyncStatus(connectivity: model.connectivity)
+                        if let date = model.synchronizedAt {
+                            Text(L10n.text("watch.last")).font(.caption)
+                            Text(date, format: .dateTime.month().day().hour().minute()).font(.caption2)
+                        }
+                        Text(L10n.text("watch.offline")).font(.caption2)
+                        Button(L10n.text("watch.erase"), role: .destructive) { confirmClear = true }
+                    }
+                }.tag("settings")
+            }
+            .tabViewStyle(.page(indexDisplayMode: .never))
         }
-        .tabViewStyle(.page)
+        .ignoresSafeArea(edges: [.horizontal, .bottom])
         .onAppear {
             #if DEBUG && targetEnvironment(simulator)
             let arguments = ProcessInfo.processInfo.arguments

@@ -24,7 +24,6 @@ struct QRView: View {
             context.fill(path, with: .color(.black), style: FillStyle(antialiased: false))
         }
         .aspectRatio(1, contentMode: .fit)
-        .background(.white)
         .accessibilityLabel(L10n.text("qr.accessibility"))
     }
 }
