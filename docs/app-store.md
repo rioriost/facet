@@ -9,7 +9,7 @@
 | アプリ名 | Facet – Contact QR |
 | Bundle ID | st.rio.facet |
 | Watch Bundle ID | st.rio.facet.watchkitapp |
-| バージョン | App Store Connect: 1.0.0。ローカルは0.1.0 (1)の開発ビルド。提出前に揃える |
+| バージョン | App Store Connectとアプリを1.0.0 (1)に統一。配信状況はdocs/testflight.mdに記録 |
 | 価格 | 無料、IAP・広告なし |
 | プライバシーURL | https://github.com/rioriost/facet/blob/main/PRIVACY_POLICY.md |
 | サポートURL | https://github.com/rioriost/facet/issues（アプリ内ではSUPPORT.mdも利用） |
