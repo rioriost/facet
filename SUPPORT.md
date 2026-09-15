@@ -20,7 +20,7 @@ Include your iPhone/Watch model, OS version, Facet version, and steps to reprodu
 - **No QR:** select a contact and enable its name separately for each profile. For limited Contacts access, add your contact to the allowed set.
 - **QR too dense:** disable long addresses, organization names, or extra URLs. Facet never silently truncates selected fields.
 - **Watch shows an old QR:** open both apps and use “Watchに再同期” on iPhone. “Watchへの送信待ち” is not delivery confirmation.
-- **Need to erase immediately:** on Watch, swipe to the information page and use “保存したQRを消去”. Offline Watch changes cannot arrive immediately.
+- **Need to erase immediately:** on Watch, swipe to the information page and use “保存したQRを消去”. Offline Watch changes cannot arrive immediately. After local erasure, ordinary updates and iPhone app restarts keep the QR hidden; use “Watchに再同期” to restore it explicitly.
 - **Contact deleted or permission revoked:** iPhone QR codes are hidden when Facet next refreshes; choose a new accessible contact in Settings.
 - **Scan does not work:** wake Watch fully, face the display toward the camera, avoid glare, and reduce fields. Watch scan reliability is still being qualified before release.
 

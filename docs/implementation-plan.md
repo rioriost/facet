@@ -93,7 +93,7 @@ WCSession.updateApplicationContextで最新状態を置換し、受信後ロー�
 - WatchにvCard文字列は不要。同期・保存するのは許可済みvCardから作った白黒モジュール、固定プロファイルID、生成日時、UUIDのみとする。非公開データも元のcontact identifierも送らない。
 - スナップショットはバージョンとサイズを検証し、丸ごと置換する。空スナップショットは削除命令として扱う。
 - updateApplicationContext受付成功は受信確認ではない。WatchからUUID受信確認を返し、「送信待ち」と「Watch受信済み」を区別する。再起動・再activation・Watch切替で最新状態を再送する。
-- 通信不能中のWatchに即時の遠隔消去は保証できない。Watchにもローカル消去を用意し、設定とPrivacy Policyで説明する。ローカル消去後は同じスナップショットを再表示しない。
+- 通信不能中のWatchに即時の遠隔消去は保証できない。Watchにもローカル消去を用意し、設定とPrivacy Policyで説明する。ローカル消去後はスナップショットIDが変わっても、iPhoneで明示的に再同期するまでQRを再表示しない。設定に永続化する復元トークンを手動再同期で更新する。
 - 個人情報をログに書かない。ファイルはApplication Supportに原子的保存、端末のファイル保護、バックアップ除外。iPhoneは連絡先の全文を保存せずIDと許可設定のみ保存する。
 
 ### QR・品質ゲート
@@ -103,3 +103,11 @@ WCSession.updateApplicationContextで最新状態を置換し、受信後ロー�
 - 読取機能をアプリへ加えず、検証用のApple Vision/Contactsを使用して生成した日本語vCardの往復を検証する。
 - Watchに最終同期日時を表示。Always Onで非active時はQRを隠す。小画面はQR領域を優先し、動的文字サイズや設定画面は実機で確認する。
 - 最低OSでの実行とWatchの光学読取・通信断/再接続はリリースゲート。SDKでコンパイルできただけでは合格にしない。
+
+
+## 継続実装（2026-09-15）
+
+- iPhone再起動でスナップショットUUIDが変わってもWatchのローカル消去は解除しない。WatchCacheを共通ロジックへ移し、QRデータを持たない消去状態を永続化。手動再同期でのみ復元トークンを変更する。
+- Watchから受信確認に消去状態を含め、iPhoneに「Watchで消去済み」と表示する。Watchの最終同期表示はiPhoneの生成日時ではなくWatchが受信した日時を使う。
+- iPhone/watchOS用AppIcon asset catalogをSVG原稿から生成。1024px、不透明sRGB、プラットフォームごとのマスクはOSに任せる。
+- Debug Simulatorだけで動く実Contactsテストを追加。使い捨てSimulatorで架空の1連絡先を用意し、個別値の許可、QRの画面からの読取、再起動、権限取消を検証する。実機とReleaseには書込用テスト処理を含めない。

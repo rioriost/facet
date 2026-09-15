@@ -14,7 +14,7 @@ The developer does not receive or collect your contact information, generated QR
 
 ## Apple Watch
 
-The iPhone sends only QR patterns generated from your selected fields, profile identifiers, a snapshot identifier, and its creation time to your paired Apple Watch using Apple's WatchConnectivity service. The Watch app does not access Contacts. QR patterns contain readable contact information; they are not anonymized or encrypted vCards.
+The iPhone sends only QR patterns generated from your selected fields, profile identifiers, a snapshot identifier, an explicit-restore identifier, and its creation time to your paired Apple Watch using Apple's WatchConnectivity service. The Watch app does not access Contacts. QR patterns contain readable contact information; they are not anonymized or encrypted vCards.
 
 The Watch stores the latest QR patterns locally for offline display. If you change permissions, remove fields, reset Facet, or delete a contact on iPhone, the Watch receives that change when synchronization becomes possible. **An offline Watch can continue showing an older QR until it reconnects or you erase its saved QR codes on the Watch.** Contact changes are checked when Facet starts, returns to the foreground, or receives a Contacts change notification; Facet does not continuously run in the background.
 
@@ -22,7 +22,7 @@ The Watch stores the latest QR patterns locally for offline display. If you chan
 
 The iPhone stores the selected contact identifier and your field-selection settings, without storing a full copy of the address book. The Watch stores the latest permitted QR patterns. These files use the operating system's app sandbox and file protection and are excluded from device backup by Facet.
 
-To remove your selections, use Settings → “設定とQRをすべて消去” on iPhone. On Watch, swipe past the three QR pages and choose “保存したQRを消去”. Watch erasure retains only an empty snapshot identifier to avoid redisplaying the same cached transfer. To restore QR display afterward, use “Watchに再同期” on iPhone. Uninstalling the iPhone app does not guarantee deletion of a separately installed, offline Watch app's data; remove or clear the Watch app too.
+To remove your selections, use Settings → “設定とQRをすべて消去” on iPhone. On Watch, swipe past the three QR pages and choose “保存したQRを消去”. Watch erasure removes QR patterns and retains only an empty snapshot, synchronization identifiers, and timestamps. Ordinary synchronization and an iPhone app restart do not undo that local erasure. To restore QR display afterward, use “Watchに再同期” on iPhone. Uninstalling the iPhone app does not guarantee deletion of a separately installed, offline Watch app's data; remove or clear the Watch app too.
 
 You can revoke Contacts access in iOS Settings at any time. Facet hides iPhone QR codes and queues an empty Watch snapshot when it next observes that access is unavailable. There is no developer-held contact database from which to request deletion.
 
