@@ -45,3 +45,21 @@
 App Store Connectのビルド: https://appstoreconnect.apple.com/teams/e392d05d-0ae2-4ed0-95bc-3229f9d1384e/apps/6812192295/testflight/ios/f2cfd632-b563-411a-80cc-bbd11df82ec3
 
 正式版のローカル証跡: `work/Facet-1.0.0-1-27A266a.xcarchive`、`work/testflight-official-archive.log`、`work/testflight-official-upload.log`、`work/testflight-official-tests.log`、`work/testflight-official-preflight.json`。これらはGit管理対象外。
+
+## 実機フィードバック修正: 1.0.0 (2)
+
+2026-09-15:
+
+- ソース: `d3e6781`（Watch拡大）、`be5d455`（単一選択・手動更新）。GitHub mainへpush済み。
+- 連絡先1件をシステム画面から選ぶだけで設定を継続。継続的なアクセス許可は不要。編集した後は同じ連絡先を選び直す。
+- 「共有する連絡先」に統一。リセットで選択済みの情報も消去し、その場で再選択可能。
+- WatchのQRを全幅に拡大。余分な下側の白背景を削除。
+- 12言語の設定・プライバシー案内を更新。App Store Connectの全12概要と審査メモの保存を確認。
+- Privacy Policyを公開リポジトリへ反映し、認証なしHTTP 200・ローカルとの内容一致を確認。
+- 共通テスト22件、実Contactsを使う4操作テスト、39枚のWatch QR読取を確認。
+- 正式版Xcode 27.0 (27A266a)でArchive成功。iPhone/Watchの1.0.0 (2)、最低OS、12言語、署名、Privacy Manifest、Debugデータ除外を検証。
+- 16:18 JST: `Upload succeeded` / `EXPORT SUCCEEDED`。Apple側の処理完了後、既存の内部グループ`facet test`に自動で追加され、1.0.0 (2)が「テスト中」、有効期限90日と表示されることを確認。日本語のテスト内容に修正点・実機確認事項を保存。
+- 証跡: `work/Facet-1.0.0-2-ready.xcarchive`、`work/feedback/ready-archive.log`、`work/feedback/ready-preflight.json`、`work/feedback/build-2-upload.log`、`work/contacts-20260915-161346`。
+- 公開審査への追加・提出は行わない。公開前には変更した設定画面とWatchのストア画像の差し替え、および指定実機での再確認が必要。
+
+Build 2: https://appstoreconnect.apple.com/teams/e392d05d-0ae2-4ed0-95bc-3229f9d1384e/apps/6812192295/testflight/ios/f41205aa-b819-44b3-8eab-c36672b6dd26
