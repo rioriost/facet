@@ -4,6 +4,7 @@ final class FacetUITests: XCTestCase {
     @MainActor func testFirstLaunchShowsSettingsWithoutRequestingContacts() {
         let app = XCUIApplication()
         app.launchArguments = ["--reset-fixture-settings"]
+        app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
         app.launch()
         XCTAssertTrue(app.navigationBars["公開設定"].waitForExistence(timeout: 10))
         XCTAssertTrue(app.buttons["Apple Contactsへのアクセスを許可"].exists)
@@ -11,6 +12,7 @@ final class FacetUITests: XCTestCase {
     @MainActor func testDemoProfilesAndConsentChange() {
         let app = XCUIApplication()
         app.launchArguments = ["--demo"]
+        app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
         app.launch()
         XCTAssertTrue(app.otherElements["qr-work"].waitForExistence(timeout: 10))
         app.swipeLeft()

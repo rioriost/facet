@@ -113,3 +113,7 @@ GitHub: https://github.com/rioriost/facet （2026-09-15に公開済み）
 - Debug Simulatorだけで動く実Contactsテストを追加。使い捨てSimulatorで架空の1連絡先を用意し、個別値の許可、QRの画面からの読取、再起動、権限取消を検証する。実機とReleaseには書込用テスト処理を含めない。
 
 GitHub公開とContacts変更・追加・削除の結合検証まで完了。実機での光学読取・Watch通信、最低OS、配布Archiveと審査提出のゲートは引き続き未完了。
+
+## 追加実装: 言語対応
+
+2026-09-15に日本語を含む12言語・地域のアプリ内ローカライズを実装。iPhoneとWatchの共通翻訳、Contactsアクセス許可説明、各言語でのQRペイロード不変性の検証を追加した。言語一覧・保守手順・検証範囲は[言語対応](localization.md)と[テスト状況](test-status.md)を参照。

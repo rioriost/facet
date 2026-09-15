@@ -54,7 +54,7 @@
 - watchOS Simulatorランタイムが未導入。watchOS Simulator上の実行は未検証（コンパイルのみ）。
 - iOS 18 / watchOS 11の最低OSでの実行。現存SimulatorはiOS 26.3/27.0で最低OSテストを代替しない。
 - VoiceOver、最大Dynamic Type、Always On実機、QRサイズ上限の実測調整。
-- App Iconの実機上での見え方、英語を含むUIローカライズ、App Store用画面撮影。asset catalogの生成・ビルド検証は完了。
+- App Iconの実機上での見え方、翻訳の母語話者レビュー、App Store用画面撮影。asset catalogの生成・ビルド検証は完了。
 - 私的なサポート連絡先の確定、配布Archive/Validate、TestFlight、審査提出。GitHub作成・pushと公開URLの確認は完了。
 
 ## 検証中に修正した問題
@@ -96,3 +96,15 @@ UIテストの初回設定ケースはDebug Simulator限定の引数でFacet設�
 - iPhone SE / 16 Proへの実機インストールは再試行したがCoreDevice 4000 / transport disconnectedで失敗。実機テストの合格を示すものではない。
 
 証跡: `work/contacts-20260915-133312/{Granted,Revoked,Deleted}.xcresult`、同ディレクトリの3ログ、`work/publication-release.log`、`work/public-urls.json`。使い捨てSimulatorは削除済み。
+
+## 12言語・地域のローカライズ（2026-09-15）
+
+- 日本語を含む12種類をiPhone / Watchへ追加。共通UI 86項目と、iPhoneのContactsアクセス許可説明を翻訳。詳細は[言語対応](localization.md)。
+- 共通テスト20件が成功（従来18件＋翻訳リソース2件）。キーの一致、空欄、書式、地域差、プライバシー説明と操作名の一致を検証。
+- iPhone SE (3rd generation) / iOS 26.3 Simulatorで12種類を指定したUIテストが成功。プロファイル名、設定タイトル、フィールド名、名前未選択エラーを確認し、実際のQRを読み戻して全言語でペイロードが同一であることを確認。
+- 通常UIテスト2件も新規Simulatorで成功。最初の既存Simulatorでの試行では、Contacts権限が既に設定されていたため初回許可ボタンの前提が成立せず1件失敗。権限未選択の新規テスト端末で再実行して解消した。
+- Debug Simulator / Release実機向けのiPhone＋同梱Watchビルドが成功。今回は署名なしビルド。両構成の完成アプリを検査し、iPhone / Watchの各12ローカライズとWatchにContacts権限説明がないことを確認。
+- 12種類の設定画面スクリーンショットを保存。ドイツ語、フランス語、中南米スペイン語、ポルトガル語（ポルトガル）、繁体字、韓国語を目視し、表示範囲内の文章の折り返し・設定操作を確認。
+- Watchランタイムでの表示、実機、最大Dynamic Type、母語話者レビューは今回の合格範囲に含めない。
+
+証跡: `work/localization-core-tests.log`、`work/localization-ui.xcresult`（多言語テスト成功／既存端末の初回権限テスト失敗を含む）、`work/localization-first-launch.xcresult`（通常UI 2件成功）、`work/localization-release.log`、`work/localization-screens/`。検査スクリプトは `scripts/check-localizations.py`。

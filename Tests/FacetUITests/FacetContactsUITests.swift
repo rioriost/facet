@@ -5,6 +5,7 @@ final class FacetContactsUITests: XCTestCase {
     @MainActor func testContactsSelectionPersistsAndExcludesPrivateValues() throws {
         let app = XCUIApplication()
         app.launchArguments = ["--contacts-fixture", "--reset-fixture-settings"]
+        app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
         app.launch()
         XCTAssertTrue(app.navigationBars["公開設定"].waitForExistence(timeout: 15))
         let name = app.switches["field-name"]
@@ -26,11 +27,13 @@ final class FacetContactsUITests: XCTestCase {
         XCTAssertFalse(before.contains("TEL:"))
         app.terminate()
         app.launchArguments = ["--contacts-fixture"]
+        app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
         app.launch()
         XCTAssertTrue(app.otherElements["qr-work"].waitForExistence(timeout: 10))
         XCTAssertEqual(try decodeQR(app), before)
         app.terminate()
         app.launchArguments = ["--contacts-fixture", "--fixture-update"]
+        app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
         app.launch()
         XCTAssertTrue(app.otherElements["qr-work"].waitForExistence(timeout: 10))
         let updated = try decodeQR(app)
@@ -44,6 +47,7 @@ final class FacetContactsUITests: XCTestCase {
 
     @MainActor func testRevokedContactsHidesPreviouslyConfiguredQR() {
         let app = XCUIApplication()
+        app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
         app.launch()
         XCTAssertTrue(app.buttons["settings"].waitForExistence(timeout: 10))
         XCTAssertFalse(app.otherElements["qr-work"].exists)
@@ -55,6 +59,7 @@ final class FacetContactsUITests: XCTestCase {
     @MainActor func testDeletedContactHidesQRAndAllowsReselection() {
         let app = XCUIApplication()
         app.launchArguments = ["--contacts-fixture", "--fixture-delete"]
+        app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
         app.launch()
         XCTAssertTrue(app.alerts["確認してください"].waitForExistence(timeout: 15))
         app.alerts.buttons["OK"].tap()
