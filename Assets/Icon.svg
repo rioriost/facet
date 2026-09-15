@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <rect width="1024" height="1024" fill="#101c36"/>
+  <!-- One contact card, split into three facets. Keep artwork inside a Watch-safe circle. -->
+  <defs><clipPath id="card"><rect x="224" y="298" width="576" height="428" rx="58"/></clipPath></defs>
+  <g clip-path="url(#card)">
+    <path d="M224 298H800L512 512Z" fill="#93c5fd"/>
+    <path d="M224 298L512 512L224 726Z" fill="#6366f1"/>
+    <path d="M512 512L800 298V726H224Z" fill="#dbeafe"/>
+  </g>
+</svg>

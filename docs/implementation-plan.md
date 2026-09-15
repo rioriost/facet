@@ -1,6 +1,6 @@
 # Facet – Contact QR 実装プラン
 
-作成: 2026-09-15 / 状態: 初稿（実装前にレビューする）
+作成: 2026-09-15 / 状態: レビュー済み・初期実装済み。実機と公開前のゲートは継続中。
 
 ## 目的・要件
 
@@ -28,8 +28,8 @@ Apple Contactsを正本として、自分の連絡先を仕事用・プライベ
 
 ## 構成
 
-- `Sources/FacetCore`: Foundationのみの設定モデル、フィールド許可、vCard生成、同期スナップショット。
-- `Apps/iOS`: Contacts読取、明示的な連絡先選択、プロファイル設定、QR生成、WatchConnectivity送信。
+- `Sources/FacetCore`: Foundationの設定モデル、フィールド許可、vCard生成、同期スナップショット。QRGeneratorのみ条件付きでCore Imageを使う（watchOSではコンパイル対象外）。
+- `Apps/iOS`: Contacts読取、明示的な連絡先選択、プロファイル設定、共通QRGeneratorの呼出、WatchConnectivity送信。
 - `Apps/Watch`: 最新スナップショット保存、QRページ表示。
 - `Apps/Shared`: QR描画、ローカル保存、WatchConnectivity共通部分。
 - `Tests/FacetCoreTests`: vCardの情報漏洩防止とUTF-8、設定、同期検証。
@@ -37,7 +37,7 @@ Apple Contactsを正本として、自分の連絡先を仕事用・プライベ
 
 ## QR / Watch同期
 
-Watch SDKにCoreImage.frameworkが存在しないことを実測したため、iPhoneでCIQRCodeGeneratorから白黒モジュール配列を生成する。WatchへはプロファイルID・名前・生成日時・許可済みvCard・対応するモジュール配列を送る。Watch側は整数物理ピクセル・白背景・黒モジュール・4モジュール余白で描画する。
+Watch SDKにCoreImage.frameworkが存在しないことを実測したため、iPhoneでCIQRCodeGeneratorから白黒モジュール配列を生成する。Watchへは固定プロファイルID・生成日時・スナップショットUUID・対応するモジュール配列のみを送る。vCard文字列は送信・保存しない。Watch側は整数物理ピクセル・白背景・黒モジュール・4モジュール余白で描画する。
 
 WCSession.updateApplicationContextで最新状態を置換し、受信後ローカルに保存。初期未同期・転送待ち・エラーを表示。QR密度上限を超える場合は項目削減を促す。
 
