@@ -62,12 +62,12 @@ WCSession.updateApplicationContextで最新状態を置換し、受信後ロー�
 
 ## 公開関連（設計段階）
 
-予定GitHub: https://github.com/rioriost/facet
+GitHub: https://github.com/rioriost/facet （2026-09-15に公開済み）
 
 - Privacy Policy: https://github.com/rioriost/facet/blob/main/PRIVACY_POLICY.md
 - Support: https://github.com/rioriost/facet/blob/main/SUPPORT.md
 - Marketing: https://github.com/rioriost/facet
-- GitHub作成・push・公開URLの到達性確認は公開工程で実施し、現時点のURLを稼働済みと扱わない。
+- GitHub作成・push・公開URLの到達性確認を2026-09-15に完了。Policy/Support/Issuesはログインなしで利用可能。
 - App Privacyは開発者による収集なしを想定。実装・SDK一覧と突き合わせて提出前に確認。
 - アカウント作成、サーバー、解析SDK、広告、IAP、連絡先編集、読取、NFC、複雑なバックエンドは非目標。
 
@@ -111,3 +111,5 @@ WCSession.updateApplicationContextで最新状態を置換し、受信後ロー�
 - Watchから受信確認に消去状態を含め、iPhoneに「Watchで消去済み」と表示する。Watchの最終同期表示はiPhoneの生成日時ではなくWatchが受信した日時を使う。
 - iPhone/watchOS用AppIcon asset catalogをSVG原稿から生成。1024px、不透明sRGB、プラットフォームごとのマスクはOSに任せる。
 - Debug Simulatorだけで動く実Contactsテストを追加。使い捨てSimulatorで架空の1連絡先を用意し、個別値の許可、QRの画面からの読取、再起動、権限取消を検証する。実機とReleaseには書込用テスト処理を含めない。
+
+GitHub公開とContacts変更・追加・削除の結合検証まで完了。実機での光学読取・Watch通信、最低OS、配布Archiveと審査提出のゲートは引き続き未完了。

@@ -18,7 +18,7 @@
 
 ## 公開前ゲート
 
-- GitHub公開リポジトリとmainを用意し、Policy/Support/Issuesをログイン不要で参照できることを確認する。
+- **完了（2026-09-15）:** GitHub Publicリポジトリを作成しmainをpush。Policy/Support/Issuesの認証なしHTTP 200とPolicy/Supportのローカル一致を確認。
 - アプリ内にPolicy/Supportへの直接リンクを配置し、「公開予定」表記を削除済み。提出時にもリンク先の到達性を再確認する。
 - 開発者の連絡先を確定する。Issuesは公開されるため、機密の問い合わせを受ける私的連絡先は別途本人から指定してもらう。
 - 実装に合わせてApp Privacyを申告。現状は開発者による収集・追跡なし、Apple標準フレームワークのみ。Contactsアクセス自体と開発者による収集は区別する。

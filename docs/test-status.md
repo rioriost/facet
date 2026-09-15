@@ -49,13 +49,13 @@
 ## 未完了のリリースゲート
 
 - 実機3台での起動・UI操作、SE/16 Pro相互およびWatchからの標準カメラ読取。
-- 初回のシステム許可ダイアログ、限定許可、実機での権限取消、実際のContacts編集/削除/同じ連絡先再選択。Simulatorの全許可・保存・取消は結合テスト済み。
+- 初回のシステム許可ダイアログ、限定許可、実機での権限取消・Contacts編集/削除、同じ連絡先の再選択。Simulatorの全許可・保存・変更・追加・削除・取消は結合テスト済み。
 - Watchの受信確認、再起動オフライン表示、通信断での変更/削除、再接続、Watch切替、ローカル消去。
 - watchOS Simulatorランタイムが未導入。watchOS Simulator上の実行は未検証（コンパイルのみ）。
 - iOS 18 / watchOS 11の最低OSでの実行。現存SimulatorはiOS 26.3/27.0で最低OSテストを代替しない。
 - VoiceOver、最大Dynamic Type、Always On実機、QRサイズ上限の実測調整。
 - App Iconの実機上での見え方、英語を含むUIローカライズ、App Store用画面撮影。asset catalogの生成・ビルド検証は完了。
-- GitHub作成・push、公開URLの到達性、連絡先確定、配布Archive/Validate、TestFlight、審査提出。
+- 私的なサポート連絡先の確定、配布Archive/Validate、TestFlight、審査提出。GitHub作成・pushと公開URLの確認は完了。
 
 ## 検証中に修正した問題
 
@@ -84,3 +84,15 @@ UIテストの初回設定ケースはDebug Simulator限定の引数でFacet設�
 継続作業の証跡: `work/core-tests-continue-final.log`、`work/contacts-20260915-125132/{granted.log,revoked.log,Granted.xcresult,Revoked.xcresult}`、`work/continue-release-final.log`、`work/watch-assets.json`。結合テストのために作成した使い捨てSimulatorは削除済み。
 
 通常UI再検証の証跡: `work/Continue-UI-Pro-isolated.xcresult`、`work/continue-ui-pro-isolated.log`。18件の共通テスト、通常UI 2件、Contacts結合2件、署名付きReleaseビルドが継続作業の最終合格範囲。
+
+
+## GitHub公開とContactsライフサイクル検証（2026-09-15）
+
+- [rioriost/facet](https://github.com/rioriost/facet)をPublicで作成し、mainをpush。
+- Repository / Privacy Policy / Support / Issuesは認証情報・CookieなしのHTTPリクエストで全て200。Policy/Supportのrawファイルはローカルとバイト単位で一致。
+- アプリ内Privacy Policy/Supportリンクから「公開予定」を削除。公開Issue用のテンプレートを追加。
+- Contacts結合3ケースが成功（通常の選択/再起動に変更・追加テストを組み込み、権限取消、削除を別ケースで検証）。公開済みメールの値変更はQRへ反映し、新規追加のメールは非公開を維持。元連絡先を削除するとQRが消え、再選択画面へ進める。
+- 署名付きReleaseビルドとcodesign deep/strictが成功。Simulator専用の変更・削除処理がReleaseバイナリに含まれないことを検査。
+- iPhone SE / 16 Proへの実機インストールは再試行したがCoreDevice 4000 / transport disconnectedで失敗。実機テストの合格を示すものではない。
+
+証跡: `work/contacts-20260915-133312/{Granted,Revoked,Deleted}.xcresult`、同ディレクトリの3ログ、`work/publication-release.log`、`work/public-urls.json`。使い捨てSimulatorは削除済み。
