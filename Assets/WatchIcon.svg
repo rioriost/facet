@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!-- Full-bleed, opaque light background: watchOS applies the circular mask. -->
+  <rect width="1024" height="1024" fill="#dcebff"/>
+  <!-- Same three-facet card silhouette as iOS, with contrast for the light background. -->
+  <defs><clipPath id="card"><rect x="224" y="298" width="576" height="428" rx="58"/></clipPath></defs>
+  <g clip-path="url(#card)">
+    <path d="M224 298H800L512 512Z" fill="#60a5fa"/>
+    <path d="M224 298L512 512L224 726Z" fill="#4f46e5"/>
+    <path d="M512 512L800 298V726H224Z" fill="#2563eb"/>
+  </g>
+</svg>
