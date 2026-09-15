@@ -35,4 +35,11 @@ xcodebuild -project Facet.xcodeproj -scheme FacetContactsTests \
     -derivedDataPath work/DerivedData -resultBundlePath "$facet_output/Revoked.xcresult" \
     CODE_SIGNING_ALLOWED=NO test-without-building > "$facet_output/revoked.log" 2>&1
 rg -q "Executed 1 test, with 0 failures" "$facet_output/revoked.log"
-print "Contacts integration and revocation passed. Evidence: $facet_output"
+xcrun simctl privacy "$facet_simulator" grant contacts st.rio.facet
+xcodebuild -project Facet.xcodeproj -scheme FacetContactsTests \
+    -destination "platform=iOS Simulator,id=$facet_simulator" -parallel-testing-enabled NO \
+    -only-testing:FacetUITests/FacetContactsUITests/testDeletedContactHidesQRAndAllowsReselection \
+    -derivedDataPath work/DerivedData -resultBundlePath "$facet_output/Deleted.xcresult" \
+    CODE_SIGNING_ALLOWED=NO test-without-building > "$facet_output/deleted.log" 2>&1
+rg -q "Executed 1 test, with 0 failures" "$facet_output/deleted.log"
+print "Contacts selection, update, revocation, and deletion passed. Evidence: $facet_output"

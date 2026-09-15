@@ -11,15 +11,15 @@
 | Watch Bundle ID | st.rio.facet.watchkitapp |
 | バージョン | 0.1.0 (1)、開発用 |
 | 価格 | 無料、IAP・広告なし |
-| プライバシーURL（予定） | https://github.com/rioriost/facet/blob/main/PRIVACY_POLICY.md |
-| サポートURL（予定） | https://github.com/rioriost/facet/blob/main/SUPPORT.md |
-| マーケティングURL（予定） | https://github.com/rioriost/facet |
+| プライバシーURL | https://github.com/rioriost/facet/blob/main/PRIVACY_POLICY.md |
+| サポートURL | https://github.com/rioriost/facet/blob/main/SUPPORT.md |
+| マーケティングURL | https://github.com/rioriost/facet |
 | ライセンス | MIT（ソースコード）。配布アプリのEULAはApple標準を想定 |
 
 ## 公開前ゲート
 
-- GitHubに公開リポジトリを作成しmainをpush。未ログインブラウザでPolicy/Support/Issuesを開き、リンク切れと個人情報混入を確認する。
-- アプリ内にPolicy/Supportへの直接リンクを配置済みか確認し、「公開予定」表記を削除する。
+- GitHub公開リポジトリとmainを用意し、Policy/Support/Issuesをログイン不要で参照できることを確認する。
+- アプリ内にPolicy/Supportへの直接リンクを配置し、「公開予定」表記を削除済み。提出時にもリンク先の到達性を再確認する。
 - 開発者の連絡先を確定する。Issuesは公開されるため、機密の問い合わせを受ける私的連絡先は別途本人から指定してもらう。
 - 実装に合わせてApp Privacyを申告。現状は開発者による収集・追跡なし、Apple標準フレームワークのみ。Contactsアクセス自体と開発者による収集は区別する。
 - PrivacyInfo.xcprivacyは両アプリに同梱。現在のソースにUserDefaultsやファイル時刻取得等のRequired Reason APIの直接使用はない。ArchiveのPrivacy Reportと実際のバイナリで再確認。

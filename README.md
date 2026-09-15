@@ -47,9 +47,9 @@ xcodebuild -project Facet.xcodeproj -scheme Facet \
 scripts/test-contacts.sh com.apple.CoreSimulator.SimRuntime.iOS-26-3
 ```
 
-使い捨てSimulatorを作成し、OSのContacts権限を許可→取消して、個別メールの選択、QRへの非公開値混入防止、設定の再起動保持、取消後の非表示を検証します。終了時にそのSimulatorだけを削除します。ログと結果は`work/contacts-日時/`に残ります。ランタイムIDは導入済みのiOSランタイムに合わせて変更してください。
+使い捨てSimulatorを作成し、OSのContacts権限を許可→取消して、個別メールの選択、QRへの非公開値混入防止、設定の再起動保持、Contactsの編集・追加・削除、権限取消後の非表示を検証します。終了時にそのSimulatorだけを削除します。ログと結果は`work/contacts-日時/`に残ります。ランタイムIDは導入済みのiOSランタイムに合わせて変更してください。
 
-`FacetContactsTests` schemeはこの手順用です。2ケースは権限状態が異なるため、一括実行せずスクリプトを使います。`--contacts-fixture`と`--reset-fixture-settings`はDebug Simulator限定のテスト引数で、前者は架空の連絡先を作成し、後者はFacetの設定だけを初期化します。実機・Releaseには含まれません。
+`FacetContactsTests` schemeはこの手順用です。3ケースは権限状態と連絡先の存在状態が異なるため、一括実行せずスクリプトを使います。`--contacts-fixture`と`--reset-fixture-settings`はDebug Simulator限定のテスト引数で、前者は架空の連絡先を作成し、後者はFacetの設定だけを初期化します。実機・Releaseには含まれません。
 
 Debug限定の起動引数`--demo`で架空の連絡先によるUI検証ができます。このモードはContactsにアクセスせず、設定を保存せず、WatchへQRを送信しません。Releaseには含まれません。
 
@@ -59,7 +59,7 @@ Debug限定の起動引数`--demo`で架空の連絡先によるUI検証がで�
 - [App Store準備](docs/app-store.md) / [テスト状況](docs/test-status.md)
 - [Privacy Policy](PRIVACY_POLICY.md) / [Support](SUPPORT.md) / [MIT License](LICENSE)
 
-公開予定: https://github.com/rioriost/facet 。リポジトリ作成・push・URL到達性確認は公開工程で実施します。
+ソースコード: https://github.com/rioriost/facet 。GitHubでソース・プライバシーポリシー・サポート文書を公開しています。
 
 [アイコン原稿・再生成方法](Assets/README.md)もリポジトリに含めています。
 

@@ -29,6 +29,7 @@ struct SettingsView: View {
                         Button { showContacts = true } label: {
                             LabeledContent("自分の連絡先", value: model.fields.first(where: { $0.kind == .name })?.displayValue ?? "選択してください")
                         }
+                        .accessibilityIdentifier("select-contact")
                         if model.authorization == .limited {
                             Button("アクセスを許可する連絡先を変更") { showAccess = true }
                         }
@@ -61,10 +62,10 @@ struct SettingsView: View {
                     Text("Facet – Contact QR · 完全無料")
                     NavigationLink("プライバシー") {
                         ScrollView {
-                            Text("連絡先はiPhone内で処理し、開発者へ送信しません。Watchには公開を許可した情報のQRだけを送ります。QRを読み取った相手はその情報を保存できます。\n\nWatchがオフラインの間は、iPhoneで設定を変更しても以前のQRが残ります。Watchの『保存したQRを消去』から端末内のQRを消去できます。\n\n写真・メモ・誕生日はQRに含めません。広告、解析、アカウント、アプリ内課金はありません。\n\n公開予定のポリシーとサポートURLは下記GitHubリポジトリです。公開前はリンク先を利用できません。")
+                            Text("連絡先はiPhone内で処理し、開発者へ送信しません。Watchには公開を許可した情報のQRだけを送ります。QRを読み取った相手はその情報を保存できます。\n\nWatchがオフラインの間は、iPhoneで設定を変更しても以前のQRが残ります。Watchの『保存したQRを消去』から端末内のQRを消去できます。\n\n写真・メモ・誕生日はQRに含めません。広告、解析、アカウント、アプリ内課金はありません。\n\nプライバシーポリシーとサポートはGitHubで公開しています。お問い合わせに連絡先情報やQRを添付しないでください。")
                                 .padding()
-                            Link("Privacy Policy · 公開予定", destination: URL(string: "https://github.com/rioriost/facet/blob/main/PRIVACY_POLICY.md")!).padding()
-                            Link("Support · 公開予定", destination: URL(string: "https://github.com/rioriost/facet/blob/main/SUPPORT.md")!).padding()
+                            Link("Privacy Policy", destination: URL(string: "https://github.com/rioriost/facet/blob/main/PRIVACY_POLICY.md")!).padding()
+                            Link("Support", destination: URL(string: "https://github.com/rioriost/facet/blob/main/SUPPORT.md")!).padding()
                         }.navigationTitle("プライバシー")
                     }
                     Button("設定とQRをすべて消去", role: .destructive) { showReset = true }

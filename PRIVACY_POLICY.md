@@ -34,7 +34,7 @@ Opening the optional GitHub privacy/support links connects your browser to GitHu
 
 ## Contact and changes
 
-Support and privacy questions: [Facet support](https://github.com/rioriost/facet/blob/main/SUPPORT.md). The repository is planned for publication; these links must be made publicly accessible before App Store distribution. Material changes will be reflected in this document with an updated date.
+Support and privacy questions: [Facet support](https://github.com/rioriost/facet/blob/main/SUPPORT.md). Material changes will be reflected in this document with an updated date.
 
 ---
 

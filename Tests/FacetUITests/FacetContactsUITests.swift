@@ -29,6 +29,15 @@ final class FacetContactsUITests: XCTestCase {
         app.launch()
         XCTAssertTrue(app.otherElements["qr-work"].waitForExistence(timeout: 10))
         XCTAssertEqual(try decodeQR(app), before)
+        app.terminate()
+        app.launchArguments = ["--contacts-fixture", "--fixture-update"]
+        app.launch()
+        XCTAssertTrue(app.otherElements["qr-work"].waitForExistence(timeout: 10))
+        let updated = try decodeQR(app)
+        XCTAssertTrue(updated.contains("updated@facet.example"))
+        XCTAssertFalse(updated.contains("work@facet.example"))
+        XCTAssertFalse(updated.contains("new-private@facet.example"))
+        XCTAssertFalse(updated.contains("private@facet.example"))
         app.swipeLeft()
         XCTAssertFalse(app.otherElements["qr-personal"].exists)
     }
@@ -41,6 +50,19 @@ final class FacetContactsUITests: XCTestCase {
         app.buttons["settings"].tap()
         XCTAssertTrue(app.staticTexts["連絡先の使用が許可されていません。"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.buttons["iPhoneの設定を開く"].exists)
+    }
+
+    @MainActor func testDeletedContactHidesQRAndAllowsReselection() {
+        let app = XCUIApplication()
+        app.launchArguments = ["--contacts-fixture", "--fixture-delete"]
+        app.launch()
+        XCTAssertTrue(app.alerts["確認してください"].waitForExistence(timeout: 15))
+        app.alerts.buttons["OK"].tap()
+        XCTAssertFalse(app.otherElements["qr-work"].exists)
+        app.buttons["settings"].tap()
+        XCTAssertTrue(app.buttons["select-contact"].waitForExistence(timeout: 5))
+        app.buttons["select-contact"].tap()
+        XCTAssertTrue(app.navigationBars["自分の連絡先を選択"].waitForExistence(timeout: 5))
     }
 
     @MainActor private func reveal(_ element: XCUIElement, in app: XCUIApplication) {

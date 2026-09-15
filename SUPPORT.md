@@ -4,7 +4,7 @@ Facet – Contact QR is a free iPhone app with an Apple Watch companion.
 
 ## Contact
 
-Use [GitHub Issues](https://github.com/rioriost/facet/issues) for bug reports and support. Maintainer: [Ryo Fujita / rioriost](https://github.com/rioriost). This repository is not yet published; the support links must be activated before App Store release. A private contact channel must also be confirmed by the developer before release; do not post sensitive privacy requests publicly.
+Use [GitHub Issues](https://github.com/rioriost/facet/issues) for bug reports and support. Maintainer: [Ryo Fujita / rioriost](https://github.com/rioriost). A private contact channel must also be confirmed by the developer before release; do not post sensitive privacy requests publicly.
 
 Include your iPhone/Watch model, OS version, Facet version, and steps to reproduce. **Do not post contact details, generated QR codes, address-book exports, or screenshots containing personal information.**
 
