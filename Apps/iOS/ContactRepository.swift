@@ -6,7 +6,7 @@ actor ContactRepository {
     static let keys: [CNKeyDescriptor] = [
         CNContactIdentifierKey, CNContactGivenNameKey, CNContactFamilyNameKey,
         CNContactMiddleNameKey, CNContactNamePrefixKey, CNContactNameSuffixKey,
-        CNContactOrganizationNameKey, CNContactJobTitleKey, CNContactPhoneNumbersKey,
+        CNContactOrganizationNameKey, CNContactDepartmentNameKey, CNContactJobTitleKey, CNContactPhoneNumbersKey,
         CNContactEmailAddressesKey, CNContactPostalAddressesKey, CNContactUrlAddressesKey
     ] as [CNKeyDescriptor]
 
@@ -27,6 +27,7 @@ actor ContactRepository {
         let name = [prefix, family, middle, given, suffix].filter { !$0.isEmpty }.joined(separator: " ")
         add("name", .name, L10n.text("field.name"), name, [family, given, middle, prefix, suffix])
         if c.isKeyAvailable(CNContactOrganizationNameKey) { add("organization", .organization, L10n.text("field.organization"), c.organizationName) }
+        if c.isKeyAvailable(CNContactDepartmentNameKey) { add("department", .department, L10n.text("field.department"), c.departmentName) }
         if c.isKeyAvailable(CNContactJobTitleKey) { add("title", .title, L10n.text("field.title"), c.jobTitle) }
         for p in c.isKeyAvailable(CNContactPhoneNumbersKey) ? c.phoneNumbers : [] { add("phone:\(p.identifier)", .phone, L10n.fieldLabel(L10n.text("field.phone"), label(p.label)), p.value.stringValue) }
         for e in c.isKeyAvailable(CNContactEmailAddressesKey) ? c.emailAddresses : [] { add("email:\(e.identifier)", .email, L10n.fieldLabel(L10n.text("field.email"), label(e.label)), e.value as String) }
@@ -51,6 +52,7 @@ actor ContactRepository {
             switch field.kind {
             case .name: title = L10n.text("field.name")
             case .organization: title = L10n.text("field.organization")
+            case .department: title = L10n.text("field.department")
             case .title: title = L10n.text("field.title")
             case .phone: title = L10n.text("field.phone")
             case .email: title = L10n.text("field.email")

@@ -4,7 +4,7 @@ import CoreImage
 final class FacetLocalizationUITests: XCTestCase {
     @MainActor func testAllLocalizationsResolveInAppAndPreserveQRPayload() throws {
         let cases = [
-            ("ja", "ja_JP", "仕事用", "公開設定", "氏名", "氏名を選ぶとQRを表示できます。"),
+            ("ja", "ja_JP", "仕事用", "共有設定", "氏名", "氏名を選ぶとQRを表示できます。"),
             ("en", "en_US", "Work", "Sharing settings", "Name", "Select the name to display a QR code."),
             ("zh-Hans", "zh_CN", "工作", "共享设置", "姓名", "选择姓名后即可显示二维码。"),
             ("zh-Hant", "zh_TW", "工作", "分享設定", "姓名", "選取姓名後即可顯示 QR 碼。"),

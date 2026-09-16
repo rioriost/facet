@@ -61,6 +61,50 @@ final class FacetContactsUITests: XCTestCase {
         XCTAssertTrue(app.otherElements["qr-work"].waitForExistence(timeout: 10))
         XCTAssertEqual(try decodeQR(app), updated)
     }
+
+    @MainActor func testCompanyAndDepartmentHaveIndependentSharingControls() throws {
+        let app = launch(["--contacts-fixture", "--reset-fixture-settings"])
+        XCTAssertTrue(app.buttons["select-contact"].waitForExistence(timeout: 15))
+        chooseFixture(app)
+        XCTAssertTrue(app.navigationBars["共有設定"].exists)
+        let name = app.switches["field-name"]
+        name.coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5)).tap()
+        let company = app.switches["field-organization"]
+        let department = app.switches["field-department"]
+        reveal(company, in: app)
+        XCTAssertTrue(company.label.contains("会社名"))
+        XCTAssertEqual(company.value as? String, "0")
+        company.coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5)).tap()
+        reveal(department, in: app)
+        XCTAssertTrue(department.label.contains("組織・部署"))
+        XCTAssertEqual(department.value as? String, "0")
+        app.buttons["完了"].tap()
+        XCTAssertTrue(app.otherElements["qr-work"].waitForExistence(timeout: 10))
+        let companyOnly = try decodeQR(app)
+        XCTAssertTrue(companyOnly.contains("ORG:Facet Example Inc.\r\n"))
+        XCTAssertFalse(companyOnly.contains("研究開発部"))
+
+        app.buttons["settings"].tap()
+        reveal(department, in: app)
+        department.coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5)).tap()
+        app.buttons["完了"].tap()
+        XCTAssertTrue(app.otherElements["qr-work"].waitForExistence(timeout: 10))
+        XCTAssertTrue(try decodeQR(app).contains("ORG:Facet Example Inc.;研究開発部\r\n"))
+
+        app.buttons["settings"].tap()
+        reveal(company, in: app)
+        company.coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5)).tap()
+        app.buttons["完了"].tap()
+        XCTAssertTrue(app.otherElements["qr-work"].waitForExistence(timeout: 10))
+        let departmentOnly = try decodeQR(app)
+        XCTAssertTrue(departmentOnly.contains("ORG:;研究開発部\r\n"))
+        XCTAssertFalse(departmentOnly.contains("Facet Example Inc."))
+        app.terminate()
+        app.launchArguments = ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
+        app.launch()
+        XCTAssertTrue(app.otherElements["qr-work"].waitForExistence(timeout: 10))
+        XCTAssertEqual(try decodeQR(app), departmentOnly)
+    }
     @MainActor func testPickerAndSavedQRWorkWithoutContactsPermission() throws {
         let app = launch()
         XCTAssertTrue(app.otherElements["qr-work"].waitForExistence(timeout: 10))

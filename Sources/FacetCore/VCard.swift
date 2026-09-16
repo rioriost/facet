@@ -10,11 +10,18 @@ public enum VCard {
         }
         var lines = ["BEGIN:VCARD", "VERSION:3.0", "FN:\(escape(name.displayValue))",
                      "N:\(structured(name.components, count: 5))"]
+        let company = allowed.first(where: { $0.kind == .organization })
+        let department = allowed.first(where: { $0.kind == .department })
+        if company != nil || department != nil {
+            // vCard 3.0 ORG: company first, organizational unit second. Keep an empty
+            // first component when only the department is shared; never add hidden values.
+            let components = [company?.components.first ?? "", department?.components.first ?? ""]
+            lines.append("ORG:\(structured(components, count: department == nil ? 1 : 2))")
+        }
         for field in allowed where field.kind != .name {
             let value = escape(field.components.first ?? "")
             switch field.kind {
-            case .name: break
-            case .organization: lines.append("ORG:\(value)")
+            case .name, .organization, .department: break
             case .title: lines.append("TITLE:\(value)")
             case .phone: lines.append("TEL:\(value)")
             case .email: lines.append("EMAIL;TYPE=INTERNET:\(value)")

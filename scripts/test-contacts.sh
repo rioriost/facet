@@ -31,10 +31,11 @@ run_case() {
     rg -q "Executed 1 test, with 0 failures" "$facet_output/$facet_label.log"
 }
 xcrun simctl privacy "$facet_simulator" grant contacts st.rio.facet
+run_case testCompanyAndDepartmentHaveIndependentSharingControls organization
 run_case testManualSelectionAndRefreshPreserveConsent manual
 xcrun simctl privacy "$facet_simulator" revoke contacts st.rio.facet
 run_case testPickerAndSavedQRWorkWithoutContactsPermission denied
 run_case testResetAllowsSelectingContactAgainWithoutRestart reset
 xcrun simctl privacy "$facet_simulator" grant contacts st.rio.facet
 run_case testDeletedOriginalDoesNotChangeSavedCopy deleted
-print "Single selection, manual refresh, permission-free picker, reset, and cached copy passed. Evidence: $facet_output"
+print "Company/department sharing, single selection, manual refresh, permission-free picker, reset, and cached copy passed. Evidence: $facet_output"

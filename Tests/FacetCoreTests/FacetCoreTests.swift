@@ -65,6 +65,20 @@ final class FacetCoreTests: XCTestCase {
 }
 
 final class ContactSnapshotTests: XCTestCase {
+    func testExistingCompanyConsentDoesNotEnableNewDepartmentOnReselection() throws {
+        let original = ContactField(id: "organization", kind: .organization, label: "会社・組織", displayValue: "Example", components: ["Example"])
+        var old = FacetSettings()
+        old.selectContact("own")
+        old.contactFields = [original]
+        old.profiles[.work] = .init(fields: ["organization"])
+        var restored = try JSONDecoder().decode(FacetSettings.self, from: JSONEncoder().encode(old))
+        restored.selectContact("own")
+        restored.contactFields?.append(.init(id: "department", kind: .department, label: "組織・部署", displayValue: "Research", components: ["Research"]))
+        XCTAssertEqual(restored.profiles[.work]?.fields, ["organization"])
+        XCTAssertTrue(restored.profiles.values.allSatisfy { !$0.fields.contains("department") })
+        XCTAssertEqual(try JSONDecoder().decode(FacetSettings.self, from: JSONEncoder().encode(restored)), restored)
+    }
+
     func testSnapshotRoundTripAndContactSwitch() throws {
         var settings = FacetSettings()
         settings.selectContact("own")

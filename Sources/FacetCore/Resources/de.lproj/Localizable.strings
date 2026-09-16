@@ -18,7 +18,8 @@
 "field.home" = "Privat";
 "field.labeled" = "%1$@ · %2$@";
 "field.name" = "Name";
-"field.organization" = "Firma oder Organisation";
+"field.organization" = "Firma";
+"field.department" = "Abteilung";
 "field.other" = "Sonstige";
 "field.phone" = "Telefon";
 "field.title" = "Position";

@@ -1,6 +1,6 @@
 # Facet – Contact QR Privacy Policy
 
-Last updated: September 15, 2026. Developer: Ryo Fujita.
+Last updated: September 16, 2026. Developer: Ryo Fujita.
 
 ## What Facet does
 
@@ -20,7 +20,7 @@ The Watch stores the latest QR patterns locally for offline display. If you rese
 
 ## Local storage and deletion
 
-The iPhone stores one selected contact’s identifier and supported fields (name, organization, job title, phone numbers, email addresses, postal addresses, and URLs), including fields you have not enabled in a QR, plus your profile settings. It does not store the rest of your address book. Only explicitly enabled fields enter a QR or are sent to Watch. The Watch stores the latest permitted QR patterns. These files use the operating system's app sandbox and file protection and are excluded from device backup by Facet.
+The iPhone stores one selected contact’s identifier and supported fields (name, company, department, job title, phone numbers, email addresses, postal addresses, and URLs), including fields you have not enabled in a QR, plus your profile settings. It does not store the rest of your address book. Only explicitly enabled fields enter a QR or are sent to Watch. The Watch stores the latest permitted QR patterns. These files use the operating system's app sandbox and file protection and are excluded from device backup by Facet.
 
 To remove the saved contact copy, all selections, and iPhone QR codes, use Settings → “設定とQRをすべて消去” on iPhone. On Watch, swipe past the three QR pages and choose “保存したQRを消去”. Watch erasure removes QR patterns and retains only an empty snapshot, synchronization identifiers, and timestamps. Ordinary synchronization and an iPhone app restart do not undo that local erasure. To restore QR display afterward, use “Watchに再同期” on iPhone. Uninstalling the iPhone app does not guarantee deletion of a separately installed, offline Watch app's data; remove or clear the Watch app too.
 
@@ -40,6 +40,6 @@ Support and privacy questions: [Facet support](https://github.com/rioriost/facet
 
 ## 日本語要約
 
-Facetでは自分の連絡先1件を選択します。その連絡先の対応項目をiPhone内に保存し、公開を許可した項目のQRのみをApple Watchへ同期します。連絡先を編集した後は、Facetで同じ連絡先を選び直して更新してください。連絡先アプリでの編集・削除やアクセス権の変更は、保存済みの情報に自動反映されません。開発者による連絡先の収集、広告、解析、課金はありません。仕事用・私用・双方の項目はそれぞれ明示的に選択します。
+Facetでは自分の連絡先1件を選択します。その連絡先の対応項目をiPhone内に保存し、共有を許可した項目のQRのみをApple Watchへ同期します。連絡先を編集した後は、Facetで同じ連絡先を選び直して更新してください。連絡先アプリでの編集・削除やアクセス権の変更は、保存済みの情報に自動反映されません。開発者による連絡先の収集、広告、解析、課金はありません。仕事用・私用・双方の項目はそれぞれ明示的に選択します。
 
 Watchはオフライン表示のためQRを保存します。iPhone側で削除しても通信できるまでは旧QRが残るため、必要に応じてWatch上で消去してください。読み取った相手が保存した情報は取り消せません。保存した連絡先と設定はFacetのリセットで、WatchのQRはWatch上の消去で削除できます。お問い合わせの公開Issueには個人情報やQRを添付しないでください。

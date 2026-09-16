@@ -18,7 +18,8 @@
 "field.home" = "住家";
 "field.labeled" = "%1$@ · %2$@";
 "field.name" = "姓名";
-"field.organization" = "公司或組織";
+"field.organization" = "公司名稱";
+"field.department" = "部門";
 "field.other" = "其他";
 "field.phone" = "電話";
 "field.title" = "職稱";

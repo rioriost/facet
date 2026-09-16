@@ -18,7 +18,8 @@
 "field.home" = "Casa";
 "field.labeled" = "%1$@ · %2$@";
 "field.name" = "Nome";
-"field.organization" = "Azienda o organizzazione";
+"field.organization" = "Azienda";
+"field.department" = "Reparto";
 "field.other" = "Altro";
 "field.phone" = "Telefono";
 "field.title" = "Qualifica";

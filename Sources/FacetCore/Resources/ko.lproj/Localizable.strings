@@ -18,7 +18,8 @@
 "field.home" = "집";
 "field.labeled" = "%1$@ · %2$@";
 "field.name" = "이름";
-"field.organization" = "회사 또는 조직";
+"field.organization" = "회사명";
+"field.department" = "부서";
 "field.other" = "기타";
 "field.phone" = "전화";
 "field.title" = "직함";

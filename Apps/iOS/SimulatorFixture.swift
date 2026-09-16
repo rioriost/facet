@@ -36,6 +36,8 @@ extension ContactRepository {
         }
         let contact = CNMutableContact()
         contact.familyName = marker; contact.givenName = "理央"
+        contact.organizationName = "Facet Example Inc."
+        contact.departmentName = "研究開発部"
         contact.emailAddresses = [
             CNLabeledValue(label: CNLabelWork, value: "work@facet.example" as NSString),
             CNLabeledValue(label: CNLabelHome, value: "private@facet.example" as NSString)

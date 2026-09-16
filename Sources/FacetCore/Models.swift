@@ -36,7 +36,7 @@ public struct FacetSettings: Codable, Equatable, Sendable {
 }
 
 public enum FieldKind: String, Codable, Sendable {
-    case name, organization, title, phone, email, address, url
+    case name, organization, department, title, phone, email, address, url
 }
 
 /// Values are components, never raw vCard syntax. Name: family/given/middle/prefix/suffix.
