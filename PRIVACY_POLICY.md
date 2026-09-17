@@ -1,6 +1,6 @@
 # Facet – Contact QR Privacy Policy
 
-Last updated: September 16, 2026. Developer: Ryo Fujita.
+Last updated: September 17, 2026. Developer: Ryo Fujita.
 
 ## What Facet does
 
@@ -27,6 +27,8 @@ To remove the saved contact copy, all selections, and iPhone QR codes, use Setti
 Changing Contacts access in iOS Settings does not erase a contact already shared through the picker; use Facet’s reset to erase its saved copy. When upgrading from version 1.0.0 build 1, Facet may read the previously selected contact once using already granted access to migrate your existing settings. It does not request additional access. If migration is unavailable, choose your contact again. There is no developer-held contact database from which to request deletion.
 
 ## Sharing and external links
+
+The Share Facet screen shows a fixed public link to Facet on the App Store. This QR code contains no contact fields or personal identifiers and requires no developer server or Watch synchronization. When someone scans the code and opens the link, Apple handles access to the App Store under its own privacy policy.
 
 Anyone who can see and scan a QR code can obtain and retain its included fields. Review your choices before showing a QR. Facet cannot revoke information another person has already scanned or saved.
 
