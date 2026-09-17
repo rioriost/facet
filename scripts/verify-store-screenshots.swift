@@ -4,7 +4,7 @@ let root = URL(fileURLWithPath: CommandLine.arguments[1])
 let files = FileManager.default.enumerator(at: root, includingPropertiesForKeys: nil)!.allObjects.compactMap { $0 as? URL }.filter {
     ($0.path.contains("/screenshots/") && $0.pathExtension == "png") || ($0.path.contains("/watch-screenshots/") && $0.pathExtension == "jpg")
 }
-var qrCount = 0, setupCount = 0
+var qrCount = 0, setupCount = 0, appShareCount = 0
 for file in files {
     let request = VNDetectBarcodesRequest()
     request.symbologies = [.qr]
@@ -16,6 +16,11 @@ for file in files {
         continue
     }
     guard let text = results.first?.payloadStringValue, results.count == 1 else { fatalError("Unreadable QR: \(file.path)") }
+    if file.lastPathComponent.contains("app-share") {
+        precondition(text == "https://apps.apple.com/jp/app/facet-contact-qr/id6812192295", file.path)
+        appShareCount += 1
+        continue
+    }
     precondition(text.contains("VERSION:3.0") && text.contains("FN:Alex Morgan"), file.path)
     let personal = file.lastPathComponent.contains("personal")
     let work = file.lastPathComponent.contains("work")
@@ -23,4 +28,4 @@ for file in files {
     precondition(text.contains("+1 202-555-0142") == !work, file.path)
     qrCount += 1
 }
-print("Verified \(qrCount) QR screenshots and \(setupCount) initial settings screenshots")
+print("Verified \(qrCount) QR screenshots and \(setupCount) initial settings screenshots and \(appShareCount) App Store QR screenshots")

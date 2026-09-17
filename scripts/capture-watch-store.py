@@ -25,7 +25,7 @@ shutil.copyfile(args.fixture, cache)
 for language, locale in locales:
     folder = args.output / language
     folder.mkdir(parents=True, exist_ok=True)
-    for index, profile in enumerate(['work', 'personal', 'combined'], 1):
+    for index, profile in enumerate(['work', 'personal', 'combined', 'app-share'], 1):
         sim('terminate', args.device, bundle, check=False)
         sim('launch', args.device, bundle, '-AppleLanguages', f'({language})', '-AppleLocale', locale, '--screenshot-profile', profile)
         time.sleep(2)

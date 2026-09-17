@@ -13,11 +13,26 @@ final class FacetStoreScreenshotTests: XCTestCase {
             app.terminate()
             app.launchArguments = ["--demo", "-AppleLanguages", "(\(language))", "-AppleLocale", locale]
             app.launch()
-            for (index, profile) in ["work", "personal", "combined"].enumerated() {
+            for (index, profile) in ["work", "personal", "combined", "app-share"].enumerated() {
                 if index > 0 { app.swipeLeft() }
                 XCTAssertTrue(app.otherElements["qr-\(profile)"].waitForExistence(timeout: 10))
                 capture(app, "\(language)__0\(index + 2)-\(profile)")
             }
+            app.terminate()
+        }
+    }
+    @MainActor func testCaptureLocalizedAppShareScreenshots() {
+        let locales = [("ja", "ja_JP"), ("en", "en_US"), ("zh-Hans", "zh_CN"), ("zh-Hant", "zh_TW"), ("ko", "ko_KR"), ("fr", "fr_FR"), ("de", "de_DE"), ("es", "es_ES"), ("es-419", "es_MX"), ("pt-BR", "pt_BR"), ("pt-PT", "pt_PT"), ("it", "it_IT")]
+        for (language, locale) in locales {
+            let app = XCUIApplication()
+            app.launchArguments = ["--demo", "-AppleLanguages", "(\(language))", "-AppleLocale", locale]
+            app.launch()
+            for profile in ["work", "personal", "combined"] {
+                XCTAssertTrue(app.otherElements["qr-\(profile)"].waitForExistence(timeout: 10))
+                app.swipeLeft()
+            }
+            XCTAssertTrue(app.otherElements["qr-app-share"].waitForExistence(timeout: 10))
+            capture(app, "\(language)__05-app-share")
             app.terminate()
         }
     }
