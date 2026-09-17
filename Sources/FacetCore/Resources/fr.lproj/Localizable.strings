@@ -74,3 +74,5 @@
 "watch.save" = "Impossible d’enregistrer les codes QR.";
 "watch.setup" = "Configurez et synchronisez depuis votre iPhone";
 "contact.refresh" = "Le contact sélectionné est enregistré sur votre iPhone. Après l’avoir modifié dans Contacts, sélectionnez-le à nouveau ici pour mettre Facet à jour.";
+
+"app.share" = "Partager Facet - Contact QR";

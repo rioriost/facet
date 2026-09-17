@@ -74,3 +74,5 @@
 "watch.save" = "无法保存二维码。";
 "watch.setup" = "请在 iPhone 上设置并同步";
 "contact.refresh" = "所选联系人的信息会保存在你的 iPhone 上。在“通讯录”中编辑后，请在此重新选择同一联系人以更新 Facet。";
+
+"app.share" = "分享 Facet - Contact QR";

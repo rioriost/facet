@@ -21,7 +21,7 @@ struct FacetApp: App {
 struct PhoneView: View {
     @ObservedObject var model: PhoneModel
     @State private var showSettings = false
-    @State private var page: ProfileID = .work
+    @State private var page = ProfileID.work.rawValue
     @Environment(\.scenePhase) private var phase
     var body: some View {
         NavigationStack {
@@ -39,8 +39,9 @@ struct PhoneView: View {
                                 .multilineTextAlignment(.center).padding(.horizontal)
                             Button(L10n.text("phone.configure")) { showSettings = true }.buttonStyle(.borderedProminent)
                         }
-                    }.frame(maxWidth: .infinity, maxHeight: .infinity).tag(id)
+                    }.frame(maxWidth: .infinity, maxHeight: .infinity).tag(id.rawValue)
                 }
+                AppShareView().tag("app-share")
             }
             .tabViewStyle(.page(indexDisplayMode: .always))
             .indexViewStyle(.page(backgroundDisplayMode: .always))

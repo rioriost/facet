@@ -74,3 +74,5 @@
 "watch.save" = "QRを保存できませんでした。";
 "watch.setup" = "iPhoneで設定・同期してください";
 "contact.refresh" = "選んだ連絡先はiPhone内に保存されます。連絡先を編集した後は、ここから同じ連絡先を選び直して更新してください。";
+
+"app.share" = "Facet - Contact QRを共有";

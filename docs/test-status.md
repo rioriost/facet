@@ -1,5 +1,16 @@
 # 検証状況
 
+## アプリ紹介QR（2026-09-17）
+
+- 共通テスト25件成功。同梱したApp Store QRをWatch相当の画素数で描画し、Visionによる読取結果が指定URLと完全一致することを確認。
+- iPhone SE（第3世代）/ iOS 26.3.1 Simulatorで通常UIテスト3件成功。新規ケースは連絡先あり／未選択の両方で、仕事用 → プライベート用 → 双方 → アプリ紹介の順序、日本語タイトル、実画面QRのURL、双方への戻りを検証。初回設定と従来の共有項目変更も成功。
+- 12言語76キーの整合性検証成功。
+- watchOS Simulator向けビルド成功。Apple Watch Series 10（42mm）/ watchOS 27.0で、同期データのない状態から紹介画面を表示。最終レイアウトの12言語画像すべてでURL読取成功と下端のquiet zoneが欠けないことを確認。日本語・フランス語は画面も目視確認。
+- iPhoneとWatchのテスト用Simulatorは終了後に削除。実機の光学読取、Watchでの手動横スワイプ、最小対応OSの再検証は実施していない。
+- App Storeへのアップロード・審査提出は未実施。現在提出済みのビルド4にはこの変更は含まれない。
+
+証跡: `work/app-share-core-tests.log`、`work/app-share/ui.xcresult`、`work/app-share/ui.log`、`work/app-share/watch-build.log`、`work/app-share/watch-*.png`、`work/app-share/watch-verification.log`。
+
 検証日: 2026-09-15。Simulator・署名・実機動作・光学読取を別々に記録する。
 
 ## 確認済み

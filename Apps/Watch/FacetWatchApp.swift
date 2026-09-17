@@ -78,6 +78,9 @@ struct WatchView: View {
                         }.frame(width: geometry.size.width, height: geometry.size.height)
                     }.tag(id.rawValue)
                 }
+                AppShareView()
+                    .frame(width: screen.size.width, height: screen.size.height)
+                    .tag("app-share")
                 ScrollView {
                     VStack(spacing: 10) {
                         Text("Facet").font(.headline)
@@ -99,7 +102,7 @@ struct WatchView: View {
             let arguments = ProcessInfo.processInfo.arguments
             if let index = arguments.firstIndex(of: "--screenshot-profile"),
                arguments.indices.contains(index + 1),
-               ProfileID(rawValue: arguments[index + 1]) != nil {
+               (ProfileID(rawValue: arguments[index + 1]) != nil || arguments[index + 1] == "app-share") {
                 selectedPage = arguments[index + 1]
             }
             #endif

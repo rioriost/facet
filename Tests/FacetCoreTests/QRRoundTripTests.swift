@@ -6,6 +6,30 @@ import Contacts
 @testable import FacetCore
 
 final class QRRoundTripTests: XCTestCase {
+    func testBundledAppShareQRDecodesToExactAppStoreURLAtWatchSize() throws {
+        let matrix = AppShare.matrix
+        try matrix.validate()
+        // Four-module quiet zone and integer modules at a compact Watch size.
+        let unit = 4, side = (matrix.width + 8) * unit
+        var pixels = [UInt8](repeating: 255, count: side * side)
+        for y in 0..<matrix.width {
+            for x in 0..<matrix.width where matrix.modules[y * matrix.width + x] == 1 {
+                for dy in 0..<unit {
+                    for dx in 0..<unit { pixels[((y + 4) * unit + dy) * side + (x + 4) * unit + dx] = 0 }
+                }
+            }
+        }
+        let image = try XCTUnwrap(CGImage(width: side, height: side, bitsPerComponent: 8,
+            bitsPerPixel: 8, bytesPerRow: side, space: CGColorSpaceCreateDeviceGray(),
+            bitmapInfo: CGBitmapInfo(rawValue: 0), provider: CGDataProvider(data: Data(pixels) as CFData)!,
+            decode: nil, shouldInterpolate: false, intent: .defaultIntent))
+        let request = VNDetectBarcodesRequest(); request.symbologies = [.qr]
+        try VNImageRequestHandler(cgImage: image).perform([request])
+        XCTAssertEqual(request.results?.count, 1)
+        XCTAssertEqual(request.results?.first?.payloadStringValue, AppShare.url)
+        XCTAssertEqual(AppShare.url, "https://apps.apple.com/jp/app/facet-contact-qr/id6812192295")
+    }
+
     func testJapaneseContactSurvivesRealQRDecodeAndVCardImport() throws {
         let fields: [ContactField] = [
             .init(id: "name", kind: .name, label: "", displayValue: "藤田 理央", components: ["藤田", "理央"]),

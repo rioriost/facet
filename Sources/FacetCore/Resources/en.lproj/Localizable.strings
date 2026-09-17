@@ -74,3 +74,5 @@
 "watch.save" = "Unable to save QR codes.";
 "watch.setup" = "Set up and sync on your iPhone";
 "contact.refresh" = "The selected contact is saved on your iPhone. After editing it in Contacts, select the same contact here again to update Facet.";
+
+"app.share" = "Share Facet - Contact QR";

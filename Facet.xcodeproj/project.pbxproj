@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08C35DF6C321247A36EFA49F /* AppShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB049D2B95B313F44FCA893F /* AppShareView.swift */; };
 		0CDC99F730278403585E6EBC /* PrivateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F777B278995217028DDA2B3 /* PrivateStore.swift */; };
 		233B0A63C6CD726492989FFD /* FacetCore in Frameworks */ = {isa = PBXBuildFile; productRef = E498A82AFD47EFFF2A5E2240 /* FacetCore */; };
 		2B3339FC71E7B953A628A00E /* QRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86704899A9404FB8F08242 /* QRView.swift */; };
@@ -23,6 +24,7 @@
 		7724A1994EBA4DE0B9AC2F13 /* ContactRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FCBCADC7C3D36859B16103 /* ContactRepository.swift */; };
 		7F021B157D84295417862E02 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2B2E545A0CB751CDE32A7616 /* InfoPlist.strings */; };
 		8EA475D94A8F6294DC56FFEF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 99C7FD7868D6B3F3485EB4E5 /* InfoPlist.strings */; };
+		99FA35D5181C4D328FB4FC7F /* AppShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB049D2B95B313F44FCA893F /* AppShareView.swift */; };
 		A13C3601236982D3C3E8BFFA /* FacetUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1375AD72F5320F97FF46097 /* FacetUITests.swift */; };
 		A670EF185F4DCBBF4FD417CC /* FacetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB32883248D60944101B7 /* FacetApp.swift */; };
 		AE3B0D06F1E9D87EFEB4F5D2 /* FacetContactsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE4519BDB7CC0ADB8DC78A2 /* FacetContactsUITests.swift */; };
@@ -103,6 +105,7 @@
 		BB02EA61CFAFD7C8459B17F1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BE7B7CD17C8C1061955BD686 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C1375AD72F5320F97FF46097 /* FacetUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacetUITests.swift; sourceTree = "<group>"; };
+		CB049D2B95B313F44FCA893F /* AppShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppShareView.swift; sourceTree = "<group>"; };
 		D31FCF5154268A8532A23365 /* Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connectivity.swift; sourceTree = "<group>"; };
 		D7EC0EC8846BD5A53635DF59 /* FacetUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = FacetUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E521DB5F86BBBD2E9F3D0F34 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -167,6 +170,7 @@
 		40BEEF683083E37C74BCF977 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				CB049D2B95B313F44FCA893F /* AppShareView.swift */,
 				D31FCF5154268A8532A23365 /* Connectivity.swift */,
 				29314111DF5D7ABA9DAA05E8 /* PrivacyInfo.xcprivacy */,
 				3F777B278995217028DDA2B3 /* PrivateStore.swift */,
@@ -387,6 +391,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99FA35D5181C4D328FB4FC7F /* AppShareView.swift in Sources */,
 				35B6F771290359880BD357C0 /* Connectivity.swift in Sources */,
 				7724A1994EBA4DE0B9AC2F13 /* ContactRepository.swift in Sources */,
 				A670EF185F4DCBBF4FD417CC /* FacetApp.swift in Sources */,
@@ -402,6 +407,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08C35DF6C321247A36EFA49F /* AppShareView.swift in Sources */,
 				D164B6C2B2078D6C6C7875AF /* Connectivity.swift in Sources */,
 				BEF2F33CE0A2DA45D73C7E6C /* FacetWatchApp.swift in Sources */,
 				0CDC99F730278403585E6EBC /* PrivateStore.swift in Sources */,

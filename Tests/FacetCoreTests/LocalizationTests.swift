@@ -13,6 +13,7 @@ final class LocalizationTests: XCTestCase {
             if let baseline { XCTAssertEqual(Set(values.keys), baseline, language) }
             else { baseline = Set(values.keys) }
             XCTAssertNotNil(values["contact.refresh"], language)
+            XCTAssertTrue(values["app.share"]?.contains("Facet - Contact QR") == true, language)
             for (key, value) in values {
                 XCTAssertFalse(value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, "\(language): \(key)")
             }

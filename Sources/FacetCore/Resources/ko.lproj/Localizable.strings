@@ -74,3 +74,5 @@
 "watch.save" = "QR 코드를 저장할 수 없습니다.";
 "watch.setup" = "iPhone에서 설정하고 동기화해 주세요";
 "contact.refresh" = "선택한 연락처는 iPhone에 저장됩니다. 연락처 앱에서 수정한 후에는 여기에서 같은 연락처를 다시 선택하여 Facet을 업데이트하세요.";
+
+"app.share" = "Facet - Contact QR 공유";
