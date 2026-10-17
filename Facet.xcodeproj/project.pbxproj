@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		046167F6B27677C3AA757A6D /* AdaptiveQRPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C68E6E77FE211348E77C3F /* AdaptiveQRPage.swift */; };
 		08C35DF6C321247A36EFA49F /* AppShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB049D2B95B313F44FCA893F /* AppShareView.swift */; };
 		0CDC99F730278403585E6EBC /* PrivateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F777B278995217028DDA2B3 /* PrivateStore.swift */; };
 		233B0A63C6CD726492989FFD /* FacetCore in Frameworks */ = {isa = PBXBuildFile; productRef = E498A82AFD47EFFF2A5E2240 /* FacetCore */; };
@@ -23,9 +24,11 @@
 		75BF8C13A5C3014A2697C6FE /* FacetCore in Frameworks */ = {isa = PBXBuildFile; productRef = 6FC15447F6267AC8764F938F /* FacetCore */; };
 		7724A1994EBA4DE0B9AC2F13 /* ContactRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FCBCADC7C3D36859B16103 /* ContactRepository.swift */; };
 		7F021B157D84295417862E02 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2B2E545A0CB751CDE32A7616 /* InfoPlist.strings */; };
+		86CECFB25DCE4A5DC0799509 /* AdaptiveQRPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C68E6E77FE211348E77C3F /* AdaptiveQRPage.swift */; };
 		8EA475D94A8F6294DC56FFEF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 99C7FD7868D6B3F3485EB4E5 /* InfoPlist.strings */; };
 		99FA35D5181C4D328FB4FC7F /* AppShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB049D2B95B313F44FCA893F /* AppShareView.swift */; };
 		A13C3601236982D3C3E8BFFA /* FacetUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1375AD72F5320F97FF46097 /* FacetUITests.swift */; };
+		A47A17A2CF6D0D84C889B327 /* FacetAdaptiveLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFB0BB32C44A55ED5FF5462 /* FacetAdaptiveLayoutTests.swift */; };
 		A670EF185F4DCBBF4FD417CC /* FacetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BB32883248D60944101B7 /* FacetApp.swift */; };
 		AE3B0D06F1E9D87EFEB4F5D2 /* FacetContactsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE4519BDB7CC0ADB8DC78A2 /* FacetContactsUITests.swift */; };
 		B677B4D50CB58DD623B66C0C /* FacetLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEB7B9DA9BC9AD0B4134F43 /* FacetLocalizationUITests.swift */; };
@@ -101,6 +104,7 @@
 		9BE4519BDB7CC0ADB8DC78A2 /* FacetContactsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacetContactsUITests.swift; sourceTree = "<group>"; };
 		A726B2E0EE340F10A3A58813 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		A8A6E463464F39845F50A37C /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		AFFB0BB32C44A55ED5FF5462 /* FacetAdaptiveLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacetAdaptiveLayoutTests.swift; sourceTree = "<group>"; };
 		B97BB32883248D60944101B7 /* FacetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacetApp.swift; sourceTree = "<group>"; };
 		BB02EA61CFAFD7C8459B17F1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BE7B7CD17C8C1061955BD686 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -109,6 +113,7 @@
 		D31FCF5154268A8532A23365 /* Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connectivity.swift; sourceTree = "<group>"; };
 		D7EC0EC8846BD5A53635DF59 /* FacetUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = FacetUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E521DB5F86BBBD2E9F3D0F34 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		E9C68E6E77FE211348E77C3F /* AdaptiveQRPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveQRPage.swift; sourceTree = "<group>"; };
 		EA62D6077FECCF791E8DA0D6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EDBA58066BF7AF54C97BD70A /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		EEE6AFF67259CE58C92BD3B3 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -170,6 +175,7 @@
 		40BEEF683083E37C74BCF977 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				E9C68E6E77FE211348E77C3F /* AdaptiveQRPage.swift */,
 				CB049D2B95B313F44FCA893F /* AppShareView.swift */,
 				D31FCF5154268A8532A23365 /* Connectivity.swift */,
 				29314111DF5D7ABA9DAA05E8 /* PrivacyInfo.xcprivacy */,
@@ -226,6 +232,7 @@
 		CEA0180354C37E1FDD72B1EA /* FacetUITests */ = {
 			isa = PBXGroup;
 			children = (
+				AFFB0BB32C44A55ED5FF5462 /* FacetAdaptiveLayoutTests.swift */,
 				9BE4519BDB7CC0ADB8DC78A2 /* FacetContactsUITests.swift */,
 				0EEB7B9DA9BC9AD0B4134F43 /* FacetLocalizationUITests.swift */,
 				521B5F9F94AE48CE0BB035C3 /* FacetStoreScreenshotTests.swift */,
@@ -391,6 +398,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				046167F6B27677C3AA757A6D /* AdaptiveQRPage.swift in Sources */,
 				99FA35D5181C4D328FB4FC7F /* AppShareView.swift in Sources */,
 				35B6F771290359880BD357C0 /* Connectivity.swift in Sources */,
 				7724A1994EBA4DE0B9AC2F13 /* ContactRepository.swift in Sources */,
@@ -407,6 +415,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86CECFB25DCE4A5DC0799509 /* AdaptiveQRPage.swift in Sources */,
 				08C35DF6C321247A36EFA49F /* AppShareView.swift in Sources */,
 				D164B6C2B2078D6C6C7875AF /* Connectivity.swift in Sources */,
 				BEF2F33CE0A2DA45D73C7E6C /* FacetWatchApp.swift in Sources */,
@@ -419,6 +428,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A47A17A2CF6D0D84C889B327 /* FacetAdaptiveLayoutTests.swift in Sources */,
 				AE3B0D06F1E9D87EFEB4F5D2 /* FacetContactsUITests.swift in Sources */,
 				B677B4D50CB58DD623B66C0C /* FacetLocalizationUITests.swift in Sources */,
 				D89F10293FC5DD9FE9BBE0EF /* FacetStoreScreenshotTests.swift in Sources */,
@@ -508,7 +518,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "Facet – Contact QR";
 				INFOPLIST_KEY_NSContactsUsageDescription = "Facet uses only the fields you select from your contact to create QR codes for sharing.";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -557,7 +567,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -579,7 +589,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -659,7 +669,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -675,7 +685,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -710,7 +720,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "Facet – Contact QR";
 				INFOPLIST_KEY_NSContactsUsageDescription = "Facet uses only the fields you select from your contact to create QR codes for sharing.";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

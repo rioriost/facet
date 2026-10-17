@@ -6,7 +6,7 @@ Apple Contactsを正本に、自分の連絡先を仕事用・プライベート
 
 ## 開発状況
 
-初期実装。Contactsの共有設定、vCard 3.0/UTF-8生成、QR表示、WatchConnectivityによる同期、Watchのオフライン表示を実装しています。ストア公開済み製品ではありません。検証結果と未完了項目は[テスト状況](docs/test-status.md)を参照してください。
+App Storeで配信中です。Contactsの共有設定、vCard 3.0/UTF-8生成、QR表示、WatchConnectivityによる同期、Watchのオフライン表示を実装しています。1.2.0ではiPhone Duoの開閉・折り目・回転に対応しました。今回の検証範囲と提出状況は[Duo対応記録](docs/duo-review-1.2.0-2026-10-17.md)、過去の検証は[テスト状況](docs/test-status.md)を参照してください。
 
 ## 特徴
 
@@ -22,7 +22,7 @@ Apple Contactsを正本に、自分の連絡先を仕事用・プライベート
 ## 開発環境
 
 - 最小対応: iOS 18.0 / watchOS 11.0。
-- 実測環境: Xcode 27 (27A266a)、Swift 6.4、XcodeGen 2.46.0、macOS 27。
+- Duo対応の実測環境: Xcode 27.1 (27A9275)、iOS 27.1 Simulator。通常iPhoneはiOS 27.0でも検証。
 - Bundle ID: `st.rio.facet` / `st.rio.facet.watchkitapp`。
 - 外部ライブラリなし。SwiftUI、Contacts、Core Image（iPhoneのみ）、WatchConnectivity。
 

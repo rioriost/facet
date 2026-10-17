@@ -25,17 +25,17 @@ struct AppShareView: View {
             }.frame(width: geometry.size.width, height: geometry.size.height)
         }
         #else
-        VStack(spacing: 20) {
+        AdaptiveQRPage { side in
             Text(L10n.text("app.share"))
                 .font(.title2.weight(.semibold))
                 .multilineTextAlignment(.center).padding(.horizontal)
             if phase == .active {
-                code.padding(.horizontal, 26)
+                code.frame(width: side, height: side)
             } else {
-                Color.clear.aspectRatio(1, contentMode: .fit).padding(.horizontal, 26)
+                Color.clear.frame(width: side, height: side)
             }
             Text(L10n.text("phone.scan")).font(.subheadline).foregroundStyle(.secondary)
-        }.frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
         #endif
     }
 

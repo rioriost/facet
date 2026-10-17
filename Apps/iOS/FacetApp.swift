@@ -27,10 +27,10 @@ struct PhoneView: View {
         NavigationStack {
             TabView(selection: $page) {
                 ForEach(ProfileID.allCases) { id in
-                    VStack(spacing: 20) {
+                    AdaptiveQRPage { side in
                         Label(id.title, systemImage: id.symbol).font(.title2.weight(.semibold))
                         if let card = model.cards.first(where: { $0.id == id }), phase == .active {
-                            QRView(matrix: card.matrix).padding(.horizontal, 26)
+                            QRView(matrix: card.matrix).frame(width: side, height: side)
                                 .accessibilityIdentifier("qr-\(id.rawValue)")
                             Text(L10n.text("phone.scan")).font(.subheadline).foregroundStyle(.secondary)
                         } else {
@@ -39,7 +39,7 @@ struct PhoneView: View {
                                 .multilineTextAlignment(.center).padding(.horizontal)
                             Button(L10n.text("phone.configure")) { showSettings = true }.buttonStyle(.borderedProminent)
                         }
-                    }.frame(maxWidth: .infinity, maxHeight: .infinity).tag(id.rawValue)
+                    }.tag(id.rawValue)
                 }
                 AppShareView().tag("app-share")
             }
@@ -48,7 +48,7 @@ struct PhoneView: View {
             .navigationTitle("Facet")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button { showSettings = true } label: { Image(systemName: "gearshape") }
+                    Button { showSettings = true } label: { Label(L10n.text("settings"), systemImage: "gearshape") }
                         .accessibilityLabel(L10n.text("settings")).accessibilityIdentifier("settings")
                 }
             }
